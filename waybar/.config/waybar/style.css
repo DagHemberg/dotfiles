@@ -1,0 +1,100 @@
+* {
+  border: none;
+  font-size: 16px;
+  min-height: 0;
+  font-family: SymbolsNerdFont, Roboto, Helvetica, Arial, sans-serif;
+}
+
+window#waybar {
+  background-color: rgba(24, 27, 33, 0);
+  color: white;
+}
+
+#custom-notifications,
+#clock {
+  padding: 10px 0 0 15px;
+}
+
+
+#hardware1 {
+  padding: 10px 0 0 15px;
+}
+
+
+#hardware2 {
+  padding: 10px 0 0 15px;
+}
+
+#custom-notifications {
+  padding: 10px 10px 0 15px;
+}
+
+#mpris {
+  padding: 5px 0 0 0;
+}
+
+#battery,
+#pulseaudio,
+#backlight,
+#network,
+#bluetooth,
+#cpu {
+  padding: 0 0 0 5px;
+}
+
+#network {
+  font-size: 18px;
+}
+
+#workspaces button {
+  /* padding: 0 10px; */
+  background: transparent;
+  color: white;
+}
+
+#workspaces button.focused {
+  background: #64727d;
+  border-bottom: 3px solid white;
+}
+
+/* #mode,
+#clock,
+#battery {
+  padding: 0 10px;
+} */
+
+/* #mode {
+  background: #64727d;
+  border-bottom: 3px solid white;
+} */
+
+/* #clock {
+  background-color: #64727d;
+} */
+
+/* #battery {
+  background-color: #ffffff;
+  color: black;
+} */
+
+/* #battery.charging {
+  color: white;
+  background-color: #26a65b;
+} */
+
+/* @keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: black;
+  }
+} */
+
+/* #battery.warning:not(.charging) {
+  background: #f53c3c;
+  color: white;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+} */

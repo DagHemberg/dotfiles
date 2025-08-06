@@ -1,0 +1,27 @@
+[core]
+	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictStyle = zdiff3
+[init]
+	defaultBranch = main
+[user]
+	name = Dag Hemberg
+	email = dag.hemberg@gmail.com
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[alias]
+	oops = commit --amend --no-edit
+	settings = config --global --edit
+	undo = reset --soft HEAD^
+	fix = "!f() { COMMIT=$(git log -n 50 --pretty=format:'%h %s' --no-merges | fzf --no-sort | cut -c -7); git commit --fixup=$COMMIT && GIT_SEQUENCE_EDITOR=true git rebase -i --autostash --autosquash $COMMIT^; }; f"
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true

@@ -1,0 +1,5 @@
+keymap:
+  - name: Global
+    remap: 
+      C-M-Left: home
+      C-M-Right: end

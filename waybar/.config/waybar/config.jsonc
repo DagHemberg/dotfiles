@@ -1,0 +1,285 @@
+{
+    
+    // ░█▀▀█ ░█▀▀▀█ ░█▄─░█ ░█▀▀▀ ▀█▀ ░█▀▀█ 
+    // ░█─── ░█──░█ ░█░█░█ ░█▀▀▀ ░█─ ░█─▄▄ 
+    // ░█▄▄█ ░█▄▄▄█ ░█──▀█ ░█─── ▄█▄ ░█▄▄█
+
+    "position": "top",
+    "height": 32,
+    
+
+
+    // ░█─── ─█▀▀█ ░█──░█ ░█▀▀▀█ ░█─░█ ▀▀█▀▀ 
+    // ░█─── ░█▄▄█ ░█▄▄▄█ ░█──░█ ░█─░█ ─░█── 
+    // ░█▄▄█ ░█─░█ ──░█── ░█▄▄▄█ ─▀▄▄▀ ─░█──
+
+    
+    "modules-left": [
+        "custom/power",
+        "hyprland/workspaces",
+        "mpris"
+    ],
+
+    "modules-right": [
+        "group/hardware1",
+        "group/hardware2",
+        "clock",
+        "custom/notifications"
+    ],
+
+
+
+    // ░█▀▀█ ░█▀▀█ ░█▀▀▀█ ░█─░█ ░█▀▀█ ░█▀▀▀█ 
+    // ░█─▄▄ ░█▄▄▀ ░█──░█ ░█─░█ ░█▄▄█ ─▀▀▀▄▄ 
+    // ░█▄▄█ ░█─░█ ░█▄▄▄█ ─▀▄▄▀ ░█─── ░█▄▄▄█
+
+    "group/hardware1": {
+        "orientation": "horizontal",
+        "children-class": "hw1",
+        "modules": [
+            "bluetooth",
+            "group/network",
+            "group/backlight",
+            "group/pulseaudio"
+        ]
+    },
+
+    "group/hardware2": {
+        "orientation": "horizontal",
+        "modules": [
+            "group/cpu",
+            "group/battery"
+        ]
+    },
+
+    "group/network": {
+        "orientation": "horizontal",
+        "modules": [
+            "network"
+        ]
+    },
+
+    "group/cpu": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "cpu",
+            "cpu#percentage"
+        ]
+    },
+
+    "group/backlight": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "backlight",
+            "backlight#percentage"
+        ]
+    },
+
+    "group/pulseaudio": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "pulseaudio",
+            "pulseaudio#percentage"
+        ]
+    },
+
+    "group/battery": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "battery",
+            "battery#percentage"
+        ]
+    },
+    
+
+
+
+    // ░█▀▄▀█ ░█▀▀▀█ ░█▀▀▄ ░█─░█ ░█─── ░█▀▀▀ ░█▀▀▀█ 
+    // ░█░█░█ ░█──░█ ░█─░█ ░█─░█ ░█─── ░█▀▀▀ ─▀▀▀▄▄
+    // ░█──░█ ░█▄▄▄█ ░█▄▄▀ ─▀▄▄▀ ░█▄▄█ ░█▄▄▄ ░█▄▄▄█
+
+    "mpris": {
+        "ignored-players": ["firefox"],
+        "player-icons": {
+            "spotify": ""
+        },
+        "status-icons": {
+            "playing": "▶",
+            "paused": "⏸"
+        },
+        "format": "{player_icon} [{status_icon} {position} / {length}] {artist} - {title}",
+        "interval": 1
+    },
+
+    "battery": {
+        "format": "{icon}",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
+    },
+
+    "backlight": {
+        "reverse-scrolling": true,
+        "format": "{icon}",
+        "format-muted": "󰝟",
+        "format-icons": [
+            // "󰃚",
+            // "󰃛",
+            "󰃜",
+            "󰃞",
+            "󰃟",
+            "󰃝",
+            "󰃠"
+        ]
+    },
+
+    "cpu": {
+        "format": ""
+        // "format": ""
+    },
+
+    "custom/power": {
+        "format": ""
+    },
+
+    "custom/notifications": {
+        "format": ""
+    },
+
+    "pulseaudio": {
+        "reverse-scrolling": true,
+        "format": "{icon}",
+        "format-icons": [
+            "󰕿",
+            "󰖀",
+            "󰕾"
+        ]
+    },
+
+    "bluetooth": {
+        "format-connected": "󰂱",
+        "format-on": "󰂯",
+        "format-off": "󰂲"
+        // "format-disabled": "󰂲",
+    },
+
+    "network": {
+        "format-wifi": "{icon}",
+        // "format-wifi": "",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ]
+
+        // "tooltip-format-ethernet": "{essid} ({signalStrength}%) "
+        // "signalStrength}%) ",
+        // "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+        // "format-disconnected": "",
+        // "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+        // "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        // "tooltip-format-ethernet": "{ifname} ",
+        // "tooltip-format-disconnected": "Disconnected",
+    },
+
+
+    // ░█▀▀▀ ▀▄░▄▀ ▀▀█▀▀ ░█▀▀█ ─█▀▀█ 
+    // ░█▀▀▀ ─░█── ─░█── ░█▄▄▀ ░█▄▄█ 
+    // ░█▄▄▄ ▄▀░▀▄ ─░█── ░█─░█ ░█─░█
+
+    "battery#percentage": {
+        "format": "{capacity}%"
+    },
+
+    "pulseaudio#percentage": {
+        "reverse-scrolling": true,
+        "format": "{volume}%"
+    },
+
+    "backlight#percentage": {
+        "reverse-scrolling": true
+        // "format": "{percentage}%"
+    },
+
+    "cpu#percentage": {
+        "format": "{usage}%",
+        "interval": 1
+    }
+}
+
+// {
+//     "position": "top",
+//     "height": 25,
+//     "modules-left": [
+//         "hyprland/workspaces",
+//         "mpris"
+//     ],
+//     "modules-center": [
+//         "clock",
+//         "hyprland/submap"
+//     ],
+//     "modules-right": [
+//         "pulseaudio",
+//         "bluetooth",
+//         "network",
+//         "cpu",
+//         "backlight",
+//         "battery"
+//     ],
+//     "pulseaudio": {
+//         "reverse-scrolling": true
+//     },
+//     "backlight": {	
+//     	"reverse-scrolling": true
+//     },
+//     "network": {
+//         "format-wifi": "",
+//         "tooltip-format-wifi": "{essid} ({signalStrength}%) "
+
+//         // "tooltip-format-ethernet": "{essid} ({signalStrength}%) "
+//         // "signalStrength}%) ",
+//         // "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+//         // "format-disconnected": "",
+//         // "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+//         // "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+//         // "tooltip-format-ethernet": "{ifname} ",
+//         // "tooltip-format-disconnected": "Disconnected",
+//     },
+//     "battery": {
+//         "format": "{capacity}% {icon}",
+//         "format-icons": [
+//             "",
+//             "",
+//             "",
+//             "",
+//             ""
+//         ]
+//     },
+//     "mpris": {
+//         "ignored-players": ["firefox"]
+//     }
+// }
