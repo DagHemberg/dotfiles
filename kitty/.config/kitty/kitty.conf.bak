@@ -19,10 +19,25 @@
 #: heavy. Setting them manually is useful for font families that have
 #: many weight variants like Book, Medium, Thick, etc. For example::
 
-font_family   Fira Code Retina
-bold_font     Fira Code Bold
-#:     italic_font      Operator Mono Book Italic
-#:     bold_italic_font Operator Mono Medium Italic
+font_family      JetBrains Mono
+bold_font        JetBrains Mono Bold
+italic_font      JetBrains Mono Italic
+bold_italic_font JetBrains Mono Bold Italic
+
+# font_family      Monocraft
+# bold_font        Monocraft Bold
+# italic_font      Monocraft Italic
+# bold_italic_font Monocraft Bold Italic
+
+# font_family      Cascadia Code
+# bold_font        Cascadia Code Bold
+# italic_font      Cascadia Code Italic
+# bold_italic_font Cascadia Code Bold Italic
+
+# font_family      Fira Code Retina
+# bold_font        Fira Code Bold
+# italic_font      JetBrains Mono Italic
+# bold_italic_font JetBrains Mono Bold Italic
 
 # font_size 11.0
 
@@ -49,6 +64,9 @@ bold_font     Fira Code Bold
 # symbol_map
 
 #: E.g. symbol_map U+E0A0-U+E0A3,U+E0C0-U+E0C7 PowerlineSymbols
+ # Nerd Fonts v3.3.0
+
+symbol_map U+e000-U+e00a,U+ea60-U+ebeb,U+e0a1-U+e0c8,U+e0ca,U+e0cc-U+e0d7,U+e200-U+e2a9,U+e300-U+e3e3,U+e5fa-U+e6b7,U+e700-U+e8ef,U+ed00-U+efc1,U+f000-U+f2ff,U+f000-U+f2e0,U+f300-U+f381,U+f400-U+f533,U+f0001-U+f1af0 Symbols Nerd Font
 
 #: Map the specified Unicode codepoints to a particular font. Useful
 #: if you need special rendering for some symbols, such as for
@@ -75,6 +93,7 @@ bold_font     Fira Code Bold
 #:     narrow_symbols codepoints [optionally the number of cells]
 
 # disable_ligatures never
+disable_ligatures cursor
 
 #: Choose how you want to handle multi-character ligatures. The
 #: default is to always render them. You can tell kitty to not render
@@ -92,7 +111,14 @@ bold_font     Fira Code Bold
 #: implemented using the calt OpenType feature. For disabling general
 #: ligatures, use the font_features option.
 
-# font_features
+font_features CascadiaCode-Italic +ss01
+font_features FiraCode-Retina +ss04 +ss04 +ss08
+font_features FiraCode-Bold +ss04 +ss04 +ss08
+
+font_features JetBrainsMono-Regular +zero +cv14
+font_features JetBrainsMono-Bold +zero +cv14
+font_features JetBrainsMonoItalic-Italic +zero +cv14
+font_features JetBrainsMonoItalic-BoldItalic +zero +cv14
 
 #: E.g. font_features none
 
@@ -250,7 +276,7 @@ bold_font     Fira Code Bold
 
 #: Cursor customization {{{
 
-# cursor #cccccc
+# moved to bottom, after theme include
 
 #: Default cursor color. If set to the special value none the cursor
 #: will be rendered with a "reverse video" effect. Its color will be
@@ -377,7 +403,7 @@ cursor_shape block
 #: when using the wheel. With a negative number, the minimum number of
 #: lines will always be added.
 
-# touch_scroll_multiplier 1.0
+touch_scroll_multiplier 5.0
 
 #: Multiplier for the number of lines scrolled by a touchpad. Note
 #: that this is only used for high precision scrolling devices on
@@ -1003,7 +1029,7 @@ window_padding_width 4
 #: The second number is the margin between the tab bar and the
 #: contents of the current tab.
 
-# tab_bar_style fade
+tab_bar_style fade
 
 #: The tab bar style, can be one of:
 
@@ -1029,7 +1055,7 @@ window_padding_width 4
 #:     a mapping for the select_tab action which presents you with a list of
 #:     tabs and allows for easy switching to a tab.
 
-# tab_bar_align left
+tab_bar_align center
 
 #: The horizontal alignment of the tab bar, can be one of: left,
 #: center, right.
@@ -1047,7 +1073,7 @@ window_padding_width 4
 #: closed tab. A value of right will switch to the tab to the right of
 #: the closed tab. A value of last will switch to the right-most tab.
 
-# tab_fade 0.25 0.5 0.75 1
+tab_fade 0.25 0.5 0.75 1
 
 #: Control how each tab fades into the background when using fade for
 #: the tab_bar_style. Each number is an alpha (between zero and one)
@@ -1061,7 +1087,7 @@ window_padding_width 4
 #: The separator between tabs in the tab bar when using separator as
 #: the tab_bar_style.
 
-# tab_powerline_style angled
+tab_powerline_style slanted
 
 #: The powerline separator style between tabs in the tab bar when
 #: using powerline as the tab_bar_style, can be one of: angled,
@@ -1080,6 +1106,7 @@ window_padding_width 4
 #: a tab. A value of zero means that no limit is applied.
 
 # tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}"
+tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{tab.active_exe}{sup.index}"
 
 #: A template to render the tab title. The default just renders the
 #: title with optional symbols for bell and activity. If you wish to
@@ -1158,7 +1185,7 @@ window_padding_width 4
 
 #: The foreground and background colors.
 
-background_opacity 0.8
+background_opacity 0.72
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -1210,7 +1237,7 @@ background_opacity 0.8
 #: When background image is scaled, whether linear interpolation
 #: should be used.
 
-# dynamic_background_opacity no
+dynamic_background_opacity yes
 
 #: Allow changing of the background_opacity dynamically, using either
 #: keyboard shortcuts (increase_background_opacity and
@@ -1391,7 +1418,7 @@ background_opacity 0.8
 #: See rc_custom_auth <https://sw.kovidgoyal.net/kitty/remote-
 #: control/#rc-custom-auth> for details.
 
-# allow_remote_control no
+allow_remote_control socket-only
 
 #: Allow other programs to control kitty. If you turn this on, other
 #: programs can control all aspects of kitty, including sending text
@@ -1420,7 +1447,7 @@ background_opacity 0.8
 #: yes
 #:     Remote control requests are always accepted.
 
-# listen_on none
+listen_on unix:/tmp/mykitty
 
 #: Listen to the specified socket for remote control connections. Note
 #: that this will apply to all kitty instances. It can be overridden
@@ -1538,7 +1565,7 @@ background_opacity 0.8
 #: special value of ask means that kitty will ask before opening the
 #: link when clicked.
 
-shell_integration no-cursor
+# shell_integration no-cursor
 
 #: Enable shell integration on supported shells. This enables features
 #: such as jumping to previous prompts, browsing the output of the
@@ -2527,3 +2554,11 @@ shell_integration no-cursor
 #: }}}
 
 #: }}}
+
+
+# BEGIN_KITTY_THEME
+# Alabaster Dark
+include current-theme.conf
+# END_KITTY_THEME
+
+cursor none
