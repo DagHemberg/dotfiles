@@ -7,10 +7,11 @@ return {
   config = function()
     local mode_map = {
       ['NORMAL'] = '',
+      ['O-PENDING'] = '',
       ['INSERT'] = '',
       ['VISUAL'] = '󰈈',
-      ['V-BLOCK'] = '󰋁',
-      ['V-LINE'] = '',
+      ['V-BLOCK'] = '󱗽',
+      ['V-LINE'] = '',
       ['REPLACE'] = '󰼭',
       ['COMMAND'] = '',
       ['TERMINAL'] = '',
@@ -52,6 +53,7 @@ return {
       options = {
         globalstatus = true,
         -- theme = 'ayu',
+        -- section_separators = { left = '▌', right = '▐' },
         component_separators = { left = '', right = '' },
       },
       sections = {
@@ -102,8 +104,7 @@ return {
             -- icon = ' ',
             -- icon = '',
             symbols = {
-              -- spinner = { '', '', '', '', '', '' },
-              -- spinner = '',
+              spinner = '',
               done = '',
             },
           },
@@ -128,14 +129,8 @@ return {
             icon = { align = 'right' },
             fmt = function (str)
               return string.len(str) ~= 0 and '' or ''
-              -- return str.len() .. ''
             end,
-            -- cond = function ()
-            --   -- return os.execute('git rev-parse --is-inside-work-tree') and true
-            -- end
           },
-          -- stylua: ignore
-          -- { function() return ' ' .. os.date('%R') end },
         },
       },
     }

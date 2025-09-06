@@ -19,7 +19,8 @@ return {
     { '<leader>sg', function() require('snacks').picker.grep() end, desc = 'grep' },
     { '<leader>sr', function() require('snacks').picker.resume() end, desc = 'resume previous' },
     { '<leader>sf', function() require('snacks').picker.files() end, desc = 'files' },
-    { '<leader>sc', function() require('snacks').picker.files({ cwd = '~/.config/nvim/' }) end, desc = 'config files' },
+    { '<leader>sc', function() require('snacks').picker.files({ cwd = '~/.config/nvim/', title = 'Neovim config files' }) end, desc = 'nvim config files' },
+    { '<leader>sd', function() require('snacks').picker.files({ cwd = '~/.dots/', title = '.dotfiles', hidden = true }) end, desc = 'dotfiles' },
     -- stylua: ignore end
   },
 }

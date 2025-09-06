@@ -4,6 +4,6 @@ return {
     lazygit = {}
   },
   keys = {
-    { '<leader>gg', require('snacks').lazygit.open, desc = 'Open LazyGit' },
+    { '<leader>lg', require('snacks').lazygit.open, desc = 'Open LazyGit' },
   }
 }

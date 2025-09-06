@@ -1,21 +1,3 @@
--- vim.api.nvim_create_autocmd("BufReadPre", {
---   -- pattern = vim.fn.expand("~/.local/share/chezmoi/*"),
---   pattern = 'dot_*',
---   callback = function(args)
---     local filename = vim.fn.fnamemodify(args.file, ":t") -- Get just the filename
---     local unchezmoified_filename = filename:gsub("^dot_", ".") -- Replace 'dot_' with '.'
---
---     print(filename, unchezmoified_filename)
---     if unchezmoified_filename ~= filename then
---       local ft = vim.filetype.match({ filename = unchezmoified_filename })
---       if ft then
---         vim.bo[args.buf].filetype = ft
---       end
---     end
---   end,
---   group = vim.api.nvim_create_augroup("ChezmoiFiletype", { clear = true }),
--- })
-
 vim.api.nvim_create_autocmd('BufWinEnter', {
   group = vim.api.nvim_create_augroup('chezmoi-filetype', { clear = true }),
   pattern = '*/chezmoi/*dot_*',
@@ -33,8 +15,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
   desc = 'Disable padding on kitty windows when entering Neovim',
   group = 'kitty-grouping',
   callback = function()
-    vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=0 &')
+    -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=0 &')
     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.92 &')
+    vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#1A1B26 &')
   end,
 })
 
@@ -42,8 +25,9 @@ vim.api.nvim_create_autocmd('VimLeave', {
   desc = 'Re-enable padding on kitty windows when exiting Neovim',
   group = 'kitty-grouping',
   callback = function()
-    vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &')
+    -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &')
     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.72 &')
+    vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#0e1415 &')
   end,
 })
 

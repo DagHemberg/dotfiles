@@ -7,24 +7,29 @@ return {
   dependencies = {
     'mason-org/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
-    'WhoIsSethDaniel/mason-tool-installer'
+    'WhoIsSethDaniel/mason-tool-installer',
   },
   config = function()
     local tools = {
-      'tinymist',
-      'lua-language-server',
-      'stylua',
+      'basedpyright',
+      'bashls',
       'clangd',
-      'rust-analyzer',
-      'hlint',
-      'hls',
-      'java-test',
-      'ts_ls',
-      'svelte',
-      'hyprls',
-      'prettier',
+      'codelldb',
+      'docker_compose_language_service',
       'dockerls',
-      'docker-compose-language-service',
+      'hls',
+      'hlint',
+      'hyprls',
+      'java-test',
+      'lua_ls',
+      'markdownlint',
+      'marksman',
+      'ruff',
+      'stylua',
+      'svelte',
+      'tinymist',
+      'ts_ls',
+      'jdtls',
     }
 
     require('mason').setup()

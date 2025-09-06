@@ -4,12 +4,12 @@ return {
   keys = {
     { '<C-a>', '<Plug>(dial-increment)', desc = 'Increment value', noremap = true },
     { '<C-x>', '<Plug>(dial-decrement)', desc = 'Decrement value', noremap = true },
-    { 'g<C-a>', '<Plug>(dial-increment)', desc = 'Increment value (additive)', remap = true },
-    { 'g<C-x>', '<Plug>(dial-decrement)', desc = 'Decrement value (additive)', remap = true },
+    { 'g<C-a>', '<Plug>(dial-g-increment)', desc = 'Increment value (additive)', remap = true },
+    { 'g<C-x>', '<Plug>(dial-g-decrement)', desc = 'Decrement value (additive)', remap = true },
     { '<C-a>', '<Plug>(dial-increment)', mode = 'v', desc = 'Increment value', noremap = true },
     { '<C-x>', '<Plug>(dial-decrement)', mode = 'v', desc = 'Decrement value', noremap = true },
-    { 'g<C-a>', '<Plug>(dial-increment)', mode = 'v', desc = 'Increment value (additive)', remap = true },
-    { 'g<C-x>', '<Plug>(dial-decrement)', mode = 'v', desc = 'Decrement value (additive)', remap = true },
+    { 'g<C-a>', '<Plug>(dial-g-increment)', mode = 'v', desc = 'Increment value (additive)', remap = true },
+    { 'g<C-x>', '<Plug>(dial-g-decrement)', mode = 'v', desc = 'Decrement value (additive)', remap = true },
   },
   config = function()
     local augend = require('dial.augend')

@@ -31,5 +31,33 @@ return {
     dap.listeners.before.launch.dapui_config = ui.open
     dap.listeners.before.event_terminated.dapui_config = ui.close
     dap.listeners.before.event_exited.dapui_config = ui.open
+
+    dap.configurations.scala = {
+      {
+        type = "scala",
+        request = "launch",
+        name = "Run or Test Target",
+        metals = {
+          runType = "runOrTestFile",
+        },
+      },
+      {
+        type = "scala",
+        request = "launch",
+        name = "Test Target",
+        metals = {
+          runType = "testTarget",
+        },
+      },
+      {
+        type = "scala",
+        request = "attach",
+        name = "Attach to Localhost",
+        hostName = "localhost",
+        port = 5005,
+        buildTarget = "root",
+      }
+    }
+
   end,
 }

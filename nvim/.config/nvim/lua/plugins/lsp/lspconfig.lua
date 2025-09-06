@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  config = function()
+  config = function(opts)
     -- Enable LSP features for all servers
     vim.lsp.config('*', {
       capabilities = vim.lsp.protocol.make_client_capabilities(),
@@ -14,7 +14,7 @@ return {
         require('which-key').add({
           { '<leader>r', ':IncRename ', desc = 'rename' },
           { '<leader>a', require('tiny-code-action').code_action, desc = 'Perform code action', mode = { 'n', 'x' } },
-          { '<Leader>gd', snacks.picker.lsp_definitions, desc = 'Go to declaration' },
+          { '<Leader>gd', snacks.picker.lsp_definitions, desc = 'Go to definition' },
           { '<Leader>gD', snacks.picker.lsp_declarations, desc = 'Go to declaration' },
           { '<leader>gr', snacks.picker.lsp_references, desc = 'Go to references' },
           { '<leader>li', snacks.picker.lsp_implementations, desc = 'View implentations' },

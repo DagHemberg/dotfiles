@@ -11,17 +11,17 @@ return {
     },
   },
   opts = {
-    backend = 'difftastic',
-    backend_opts = {
-      difftastic = {
-        args = {
-          '--color=always',
-          '--syntax-highlight=on',
-          -- '--display=inline',
-          '--width=999',
-        },
-      },
-    },
+    backend = 'vim',
+    -- backend_opts = {
+    --   difftastic = {
+    --     args = {
+    --       '--color=always',
+    --       '--syntax-highlight=on',
+    --       -- '--display=inline',
+    --       '--width=999',
+    --     },
+    --   },
+    -- },
     picker = {
       'snacks',
       -- opts = { postiton = 'cursor' },

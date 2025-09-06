@@ -2,6 +2,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   event = 'VeryLazy',
   dependencies = {
+    -- 'OXY2DEV/markview.nvim',
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   build = ':TSUpdate',

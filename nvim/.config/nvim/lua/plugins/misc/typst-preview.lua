@@ -5,6 +5,6 @@ return {
   opts = {
     dependencies_bin = {
       ['tinymist'] = 'tinymist',
-    }
-  }
+    },
+  },
 }
