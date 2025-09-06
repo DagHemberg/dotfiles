@@ -1,0 +1,7 @@
+hlissner/zsh-autopair
+marlonrichert/zsh-autocomplete
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+romkatv/powerlevel10k
+jirutka/zsh-shift-select
