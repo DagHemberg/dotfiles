@@ -21,6 +21,7 @@
 	settings = config --global --edit
 	undo = reset --soft HEAD^
 	fix = "!f() { COMMIT=$(git log -n 50 --pretty=format:'%h %s' --no-merges | fzf --no-sort | cut -c -7); git commit --fixup=$COMMIT && GIT_SEQUENCE_EDITOR=true git rebase -i --autostash --autosquash $COMMIT^; }; f"
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [pull]
 	rebase = true
 [push]
