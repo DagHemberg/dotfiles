@@ -24,7 +24,7 @@ vim.diagnostic.config({
     current_line = true,
     format = fmt_diagnostic,
   },
-  update_in_insert = false,
+  update_in_insert = true,
   virtual_text = {
     source = 'if_many',
     spacing = 4,

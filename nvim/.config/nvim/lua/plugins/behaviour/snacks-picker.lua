@@ -11,7 +11,7 @@ return {
   },
   keys = {
     -- stylua: ignore start
-    { '<leader><space>', function() require('snacks').picker.smart({ title = 'Search' }) end, desc = 'files' },
+    { '<leader><space>', function() require('snacks').picker.smart({ title = 'Search' }) end, desc = 'Search files' },
     { '<leader>h', function() require('snacks').picker.help() end, desc = 'help' },
     { '<leader>ss', function() require('snacks').picker.pickers() end, desc = 'builtin pickers' },
     { '<leader>sk', function() require('snacks').picker.keymaps() end, desc = 'keymaps' },

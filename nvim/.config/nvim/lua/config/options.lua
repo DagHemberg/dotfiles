@@ -49,6 +49,10 @@ vim.opt.updatetime = 250
 -- Disable keymap timeouts
 vim.opt.timeout = false
 
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -79,3 +83,9 @@ vim.opt.conceallevel = 2
 
 vim.g.have_nerd_font = true
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.filetype.add({
+  extension = {
+    yml = 'yaml.ansible'
+  }
+})

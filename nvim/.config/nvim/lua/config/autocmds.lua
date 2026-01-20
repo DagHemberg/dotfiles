@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
     -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=0 &')
     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.92 &')
     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#1A1B26 &')
+    vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-window-title "nvim" &')
   end,
 })
 
@@ -28,6 +29,7 @@ vim.api.nvim_create_autocmd('VimLeave', {
     -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &')
     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.72 &')
     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#0e1415 &')
+    vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-window-title "zsh" &')
   end,
 })
 

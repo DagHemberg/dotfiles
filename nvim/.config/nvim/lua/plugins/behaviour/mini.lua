@@ -16,7 +16,7 @@ return {
         delete = 'ds',
         replace = 'cs',
         highlight = '',
-        update_n_lines = '',
+        -- update_n_lines = '',
         find = '',
         find_left = '',
       },
@@ -147,5 +147,13 @@ return {
         end
       end
     end
+
+    wk.add({ '"', 'gs"', mode = { 'v' } })
+    wk.add({ "'", "gs'", mode = { 'v' } })
+
+    -- TODO: make consistent across program, e.g '(' -> no ws
+    wk.add({ '(', 'gs)', mode = { 'v' } })
+    wk.add({ '[', 'gs]', mode = { 'v' } })
+    wk.add({ '{', 'gs}', mode = { 'v' } })
   end,
 }

@@ -28,10 +28,12 @@ return {
       { '<Esc>', '<cmd>nohlsearch<CR>', desc = 'Clear search highlight' },
 
       -- Move between windows
-      { '<C-h>', '<C-w><C-h>', desc = 'Move focus to the left window' },
-      { '<C-l>', '<C-w><C-l>', desc = 'Move focus to the right window' },
-      { '<C-j>', '<C-w><C-j>', desc = 'Move focus to the lower window' },
-      { '<C-k>', '<C-w><C-k>', desc = 'Move focus to the upper window' },
+      { '<C-h>', '<C-w><C-h>', desc = 'Move focus to the left window', mode = { 'n', 'c' } },
+      { '<C-l>', '<C-w><C-l>', desc = 'Move focus to the right window', mode = { 'n', 'c' } },
+      { '<C-j>', '<C-w><C-j>', desc = 'Move focus to the lower window', mode = { 'n', 'c' } },
+      { '<C-k>', '<C-w><C-k>', desc = 'Move focus to the upper window', mode = { 'n', 'c' } },
+
+      { '<esc>', [[<C-\><C-n>]], mode = 't' },
 
       -- windows
       { '-', '<C-w>-', desc = 'Increase height' },

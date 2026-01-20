@@ -1,15 +1,10 @@
 return {
   'monaqa/dial.nvim',
-  -- event = 'VeryLazy',
   keys = {
-    { '<C-a>', '<Plug>(dial-increment)', desc = 'Increment value', noremap = true },
-    { '<C-x>', '<Plug>(dial-decrement)', desc = 'Decrement value', noremap = true },
-    { 'g<C-a>', '<Plug>(dial-g-increment)', desc = 'Increment value (additive)', remap = true },
-    { 'g<C-x>', '<Plug>(dial-g-decrement)', desc = 'Decrement value (additive)', remap = true },
-    { '<C-a>', '<Plug>(dial-increment)', mode = 'v', desc = 'Increment value', noremap = true },
-    { '<C-x>', '<Plug>(dial-decrement)', mode = 'v', desc = 'Decrement value', noremap = true },
-    { 'g<C-a>', '<Plug>(dial-g-increment)', mode = 'v', desc = 'Increment value (additive)', remap = true },
-    { 'g<C-x>', '<Plug>(dial-g-decrement)', mode = 'v', desc = 'Decrement value (additive)', remap = true },
+    { '<C-a>', '<Plug>(dial-increment)', mode = { 'n', 'v' }, desc = 'Increment value', noremap = true },
+    { '<C-x>', '<Plug>(dial-decrement)', mode = { 'n', 'v' }, desc = 'Decrement value', noremap = true },
+    { 'g<C-a>', '<Plug>(dial-g-increment)', mode = { 'n', 'v' }, desc = 'Increment value (additive)', remap = true },
+    { 'g<C-x>', '<Plug>(dial-g-decrement)', mode = { 'n', 'v' }, desc = 'Decrement value (additive)', remap = true },
   },
   config = function()
     local augend = require('dial.augend')
@@ -17,7 +12,7 @@ return {
     local const = augend.constant.new
     local date = augend.date.new
 
-    local defualts = {
+    local defaults = {
       -- numbers
       augend.integer.alias.decimal_int,
       augend.integer.alias.hex,
@@ -49,37 +44,36 @@ return {
       const({ elements = { 'yes', 'no' }, preserve_case = true }),
       const({ elements = { 'on', 'off' }, preserve_case = true }),
       const({ elements = { 'and', 'or' }, preserve_case = true }),
-      const({ elements = { '&&', '||' } }),
-      const({ elements = { '<', '<=', '>', '>=' } }),
+      const({ elements = { '&&', '||' }, word = false }),
+      -- const({ elements = { '<', '<=', '>', '>=' }, word = false, match_before_cursor = true }),
     }
 
     config.augends:register_group({
-      default = { table.unpack(defualts) },
+      default = { table.unpack(defaults) },
     })
 
     config.augends:on_filetype({
       markdown = {
-        table.unpack(defualts),
         augend.misc.alias.markdown_header,
         const({ elements = { '[ ]', '[x]' }, word = false }),
+        table.unpack(defaults),
       },
       python = {
-        table.unpack(defualts),
         const({ elements = { 'def', 'async def' } }),
+        table.unpack(defaults),
       },
       rust = {
-        table.unpack(defualts),
         const({ elements = { 'pub', 'pub(crate)' } }),
         const({ elements = { 'fn', 'async fn' } }),
         const({ elements = { 'struct', 'trait', 'enum' } }),
+        table.unpack(defaults),
       },
       java = {
-        table.unpack(defualts),
         const({ elements = { 'public', 'protected', 'private' } }),
         const({ elements = { 'class', 'interface', 'enum' } }),
+        table.unpack(defaults),
       },
       scala = {
-        table.unpack(defualts),
         const({ elements = { 'protected', 'private' } }),
         const({ elements = { 'opaque', 'transparent' } }),
         const({ elements = { 'given', 'implicit' } }),
@@ -89,25 +83,25 @@ return {
           word = false,
           match_before_cursor = true,
         }),
+        table.unpack(defaults),
       },
       javascript = {
-        table.unpack(defualts),
         const({ elements = { 'let', 'const', 'var' } }),
         const({ elements = { 'function', 'async function' }, match_before_cursor = true }),
+        table.unpack(defaults),
       },
       typescript = {
-        table.unpack(defualts),
         const({ elements = { 'let', 'const', 'var' } }),
         const({ elements = { 'public', 'private', 'protected' } }),
         const({ elements = { 'function', 'async function' }, word = false }),
+        table.unpack(defaults),
       },
       go = {
-        table.unpack(defualts),
         const({ elements = { 'var', 'const' } }),
         const({ elements = { ':=', '=' }, word = false }),
+        table.unpack(defaults),
       },
       css = {
-        table.unpack(defualts),
         const({ elements = { 'px', 'em', 'rem', '%' }, word = false }),
         const({
           elements = {
@@ -118,7 +112,7 @@ return {
             'display: grid',
             'display: none',
           },
-          word = true,
+          word = false,
         }),
         const({
           elements = {
@@ -130,20 +124,19 @@ return {
           },
           word = false,
         }),
+        table.unpack(defaults),
       },
       c = {
-        table.unpack(defualts),
         const({ elements = { 'signed', 'unsigned' } }),
+        table.unpack(defaults),
       },
       cpp = {
-        table.unpack(defualts),
         const({ elements = { 'signed', 'unsigned' } }),
         const({ elements = { 'const', 'constexpr' } }),
         const({ elements = { 'class', 'struct' } }),
         const({ elements = { 'public:', 'protected:', 'private:' } }),
+        table.unpack(defaults),
       },
     })
-
-    require('which-key').add({})
   end,
 }

@@ -13,8 +13,8 @@ require('config.usercmds')
 require('config.diagnostic')
 require('config.options')
 
--- vim.cmd.colorscheme('tokyonight')
 vim.cmd.colorscheme('tokyonight')
+-- vim.cmd.colorscheme('ayu')
 
 -- TODO:
 --  [x] snacks.picker

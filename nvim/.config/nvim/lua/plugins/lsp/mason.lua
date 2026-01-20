@@ -11,25 +11,28 @@ return {
   },
   config = function()
     local tools = {
+      'ts_ls',
+      'astro',
       'basedpyright',
       'bashls',
       'clangd',
       'codelldb',
       'docker_compose_language_service',
       'dockerls',
+      'glsl_analyzer',
       'hls',
       'hlint',
       'hyprls',
       'java-test',
+      'jdtls',
+      'jqls',
       'lua_ls',
       'markdownlint',
       'marksman',
-      'ruff',
+      'qmlls',
       'stylua',
       'svelte',
       'tinymist',
-      'ts_ls',
-      'jdtls',
     }
 
     require('mason').setup()

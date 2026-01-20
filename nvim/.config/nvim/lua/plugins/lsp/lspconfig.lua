@@ -21,6 +21,7 @@ return {
           { '<leader>ld', snacks.picker.lsp_symbols, desc = 'Open document symbols' },
           { '<leader>lw', snacks.picker.lsp_workspace_symbols, desc = 'Open workspace symbols' },
           { '<leader>lt', snacks.picker.lsp_type_definitions, desc = 'Go to type definition' },
+          { '<leader>lc', vim.lsp.codelens.run, desc = 'Run codelens' }
         })
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
