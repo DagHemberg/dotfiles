@@ -12,3 +12,4 @@ bindkey -M menuselect '^E' .end-of-line
 # bindkey -M menuselect '^[[C' .forward-char '^[OC' .forward-char
 
 bindkey '^Z' fancy-ctrl-z
+bindkey '^Q^L' insert-last-command-output

@@ -30,3 +30,5 @@ source $ZDOTDIR/keybinds.zsh
 
 # activate prompt
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+export LC_ALL="sv_SE.UTF-8"

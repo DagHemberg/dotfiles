@@ -1,8 +1,9 @@
-export KUBECONFIG="$XDG_CONFIG_HOME/kube"
+export KUBECONFIG="$XDG_CONFIG_HOME/kube.yaml"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export NPM_CONFIG_CACHE="$XDG_CONFIG_HOME/npm"
 export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME/npm/config/npm-init.js"
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
+export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible.cfg"
+# export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
 export SBT_OPTS="-Dsbt.global.base=$XDG_DATA_HOME/sbt/1.0 -Dsbt.boot.directory=$XDG_CACHE_HOME/sbt/boot -Dsbt.repository.config=$XDG_CACHE_HOME/sbt/repositories -Dsbt.ivy.home=$XDG_CACHE_HOME/ivy2"
 
 export GHCUP_USE_XDG_DIRS=1

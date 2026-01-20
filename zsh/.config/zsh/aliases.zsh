@@ -5,6 +5,8 @@ alias rm="rm -iv"
 alias mv="mv -iv"
 alias cp="cp -riv"
 alias code="code --ozone-platform=wayland"
+alias dw="pw -p Dsek"
+alias git='LANG=en_US git'
 
 # builtin replacements
 alias cat="bat"
@@ -15,6 +17,7 @@ eval "$(zoxide init --cmd cd zsh)"
 # programs
 alias nv="nvim"
 alias lg="lazygit"
+alias winpod="podman-compose --file=$XDG_CONFIG_HOME/winapps/compose.yaml"
 
 # yt-dlp -- downloading videos and music
 alias dlv="yt-dlp -S 'ext' -o '$XDG_VIDEOS_DIR/yt-dlp/%(title)s.%(ext)s'"

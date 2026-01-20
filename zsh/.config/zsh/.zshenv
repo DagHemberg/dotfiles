@@ -1,10 +1,12 @@
-# ZDOTDIR, XDG_{CONFIG,CACHE,DATA,STATE}_HOME defined in /etc/zshenv
+# NOTE: ZDOTDIR, XDG_{CONFIG,CACHE,DATA,STATE}_HOME defined in /etc/zshenv
 
 export LD_LIBRARY_PATH=/usr/local/lib
 export HISTFILE="$ZDOTDIR/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=100000
-setopt HIST_SAVE_NO_DUPS
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
 
 export EDITOR="nvim"
 export VISUAL="nvim"
