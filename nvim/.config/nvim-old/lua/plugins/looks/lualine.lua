@@ -11,7 +11,7 @@ return {
       ['INSERT'] = '',
       ['VISUAL'] = '󰈈',
       ['V-BLOCK'] = '󱗽',
-      ['V-LINE'] = '',
+      ['V-LINE'] = '󱪶',
       ['REPLACE'] = '󰼭',
       ['COMMAND'] = '',
       ['TERMINAL'] = '',
@@ -120,14 +120,14 @@ return {
           },
           {
             'branch',
-            icon = { align = 'right' }
-          }
+            icon = { align = 'right' },
+          },
         },
         lualine_z = {
           {
             'branch',
             icon = { align = 'right' },
-            fmt = function (str)
+            fmt = function(str)
               return string.len(str) ~= 0 and '' or ''
             end,
           },

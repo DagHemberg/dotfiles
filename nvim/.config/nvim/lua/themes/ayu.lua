@@ -7,7 +7,7 @@ return {
         -- rust
         ['Delimiter'] = { fg = '#646B73' },
         ['Type'] = { fg = '#399be6' },
-        ['MatchParen'] = { fg = "#FF8F40", bold = true, underline = false },
+        ['MatchParen'] = { fg = '#FF8F40', bold = true, underline = false },
         ['@lsp.type.parameter'] = { fg = '#9dbbef' },
         ['@character.rust'] = { link = 'String' },
         ['@variable'] = { fg = '#9dbbef' },

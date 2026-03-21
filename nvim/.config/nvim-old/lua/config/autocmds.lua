@@ -1,14 +1,3 @@
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  group = vim.api.nvim_create_augroup('chezmoi-filetype', { clear = true }),
-  pattern = '*/chezmoi/*dot_*',
-  callback = function(ev)
-    local ft = vim.filetype.match({ filename = vim.fn.fnamemodify(ev.file, ':t'):gsub('^dot_', '.') })
-    if ft ~= nil then
-      vim.bo[ev.buf].filetype = ft
-    end
-  end,
-})
-
 vim.api.nvim_create_augroup('kitty-grouping', { clear = true })
 
 vim.api.nvim_create_autocmd('VimEnter', {
@@ -58,5 +47,29 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
         end
       end
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'Filetype' }, {
+  callback = function(event)
+    -- make sure nvim-treesitter is loaded
+    local nvim_treesitter = require('nvim-treesitter')
+    local parsers = require('nvim-treesitter.parsers')
+    if not parsers[event.match] or not nvim_treesitter.install then
+      return
+    end
+
+    local ft = vim.bo[event.buf].ft
+    local lang = vim.treesitter.language.get_lang(ft)
+    nvim_treesitter.install({ lang }):await(function(err)
+      if err then
+        vim.notify('Treesitter install error for ft: ' .. ft .. ' err: ' .. err)
+        return
+      end
+
+      pcall(vim.treesitter.start, event.buf)
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    end)
   end,
 })

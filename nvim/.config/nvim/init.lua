@@ -1,39 +1,243 @@
--- Must be done first!
+-- Font: ANSI compact @ https://patorjk.com/software/taag/
+
+-- ▄▄ ▄▄  ▄▄ ▄▄ ▄▄▄▄▄▄
+-- ██ ███▄██ ██   ██
+-- ██ ██ ▀██ ██   ██
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.api.nvim_set_keymap('n', 'ä', ']', { noremap = false })
-vim.api.nvim_set_keymap('n', 'ö', '[', { noremap = false })
-vim.api.nvim_set_keymap('o', 'ä', ']', { noremap = false })
-vim.api.nvim_set_keymap('o', 'ö', '[', { noremap = false })
+vim.keymap.set('n', '<Esc>[105;5u', '<C-i>', { noremap = true })
 
-require('config.lazy')
-require('config.autocmds')
-require('config.usercmds')
-require('config.diagnostic')
-require('config.options')
+vim.keymap.set('n', 'ä', ']', { noremap = false })
+vim.keymap.set('n', 'ö', '[', { noremap = false })
+vim.keymap.set('o', 'ä', ']', { noremap = false })
+vim.keymap.set('o', 'ö', '[', { noremap = false })
+
+-- typo-resistant write/quit
+vim.api.nvim_create_user_command('WQ', 'wq', {})
+vim.api.nvim_create_user_command('Wq', 'wq', {})
+vim.api.nvim_create_user_command('W', 'w', {})
+vim.api.nvim_create_user_command('Qa', 'qa', {})
+vim.api.nvim_create_user_command('Q', 'q', {})
+
+-- ▄▄     ▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄
+-- ██    ██▀██   ▄█▀ ▀███▀
+-- ██▄▄▄ ██▀██ ▄██▄▄   █
+
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
+  end
+end
+
+---@diagnostic disable-next-line: undefined-field
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+  checker = {
+    enabled = true,
+    notify = true,
+  },
+  profiling = {
+    loader = true,
+    require = true,
+  },
+  spec = {
+    { import = 'plugins' },
+    { import = 'themes' },
+  },
+})
+
+--  ▄▄▄  ▄▄▄▄ ▄▄▄▄▄▄ ▄▄  ▄▄▄  ▄▄  ▄▄  ▄▄▄▄
+-- ██▀██ ██▄█▀  ██   ██ ██▀██ ███▄██ ███▄▄
+-- ▀███▀ ██     ██   ██ ▀███▀ ██ ▀██ ▄▄██▀
+
+vim.cmd('language en_US.UTF-8')
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.mouse = 'a'
+vim.opt.showmode = false
+vim.opt.wrap = false
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
+
+-- Enable break indent
+vim.opt.breakindent = true
+
+-- Save undo history
+vim.opt.undofile = true
+
+-- Case-insensitive searching UNLESS \C or one or more capital letters
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- Keep signcolumn on by default
+vim.opt.signcolumn = 'yes'
+
+-- Decrease update time
+vim.opt.updatetime = 250
+
+-- Disable keymap timeouts
+vim.opt.timeout = false
+
+-- Tabs -> 4 spaces
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+-- Configure how new splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.fillchars = { eob = ' ' }
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = 'nosplit'
+
+-- Show which line your cursor is on
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number'
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 5
+
+-- Raise a dialog asking if you wish to save changes before quitting
+vim.opt.confirm = true
+
+-- Only show certain elements if cursor is on the same line
+vim.opt.conceallevel = 2
+
+-- Don't break in the middle of words
+vim.opt.linebreak = true
+
+vim.g.have_nerd_font = true
 
 vim.cmd.colorscheme('tokyonight')
--- vim.cmd.colorscheme('ayu')
 
--- TODO:
---  [x] snacks.picker
---    [x] (and figure out todo list)
---  [x] a few new textobjs
---  [x] dap
---    [x] like actually figure it out
---  [x] lualine
---    [x] fix lualine not covering confirmation
---  [x] minor blink config (border mostly, maybe keybinds)
---    [x] autocomplete in commandline same as blink
---  [x] investigate mason autoinstall (again)
---  [x] insert mode keymaps?
---  [x] file organization
---  [x] tiny-code-action
---  [-] colorscheme customization
---    [ ] autocmd for switching on filetype
---  [ ] ctrl+space -> hover, goto def -> K
---  [ ] more leader keys
---  [ ] proper lazyloading?
+-- ▄▄▄▄  ▄▄  ▄▄▄   ▄▄▄▄ ▄▄  ▄▄  ▄▄▄   ▄▄▄▄ ▄▄▄▄▄▄ ▄▄  ▄▄▄▄  ▄▄▄▄
+-- ██▀██ ██ ██▀██ ██ ▄▄ ███▄██ ██▀██ ███▄▄   ██   ██ ██▀▀▀ ███▄▄
+-- ████▀ ██ ██▀██ ▀███▀ ██ ▀██ ▀███▀ ▄▄██▀   ██   ██ ▀████ ▄▄██▀
 
--- vim: ts=2 sts=2 sw=2 et
+local function fmt_diagnostic(diagnostic)
+  return diagnostic.message
+end
+
+vim.diagnostic.config({
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+      [vim.diagnostic.severity.HINT] = '󰌵 ',
+    },
+  },
+  virtual_lines = {
+    current_line = true,
+    format = fmt_diagnostic,
+  },
+  update_in_insert = true,
+  virtual_text = {
+    source = 'if_many',
+    spacing = 4,
+    format = fmt_diagnostic,
+  },
+})
+
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
+  desc = 'Disable diagnostic.virtual_text on any line affected by the diagnostic',
+  group = vim.api.nvim_create_augroup('diagnostic_virt_text_hide', { clear = true }),
+  callback = function(ev)
+    local cursor_lnum, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    cursor_lnum = cursor_lnum - 1
+
+    vim.diagnostic.show(nil, ev.buf)
+    for _, diagnostic in ipairs(vim.diagnostic.get(ev.buf)) do
+      local start_line = diagnostic.lnum
+      local end_line = diagnostic.end_lnum or start_line
+      if cursor_lnum >= start_line and cursor_lnum <= end_line then
+        for _, namespace in pairs(vim.diagnostic.get_namespaces()) do
+          local ns_id = namespace.user_data.virt_text_ns
+          if ns_id then
+            local extmarks = vim.api.nvim_buf_get_extmarks(ev.buf, ns_id, { start_line, 0 }, { end_line, -1 }, {})
+            for _, extmark in pairs(extmarks) do
+              vim.api.nvim_buf_del_extmark(ev.buf, ns_id, extmark[1])
+            end
+          end
+        end
+      end
+    end
+  end,
+})
+
+-- TODO: binding for showing all diagnostics / all on the current line (trouble?)
+
+-- ▄▄ ▄▄ ▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄  ▄▄ ▄▄  ▄▄ ▄▄▄▄   ▄▄▄▄
+-- ██▄█▀ ██▄▄  ▀███▀ ██▄██ ██ ███▄██ ██▀██ ███▄▄
+-- ██ ██ ██▄▄▄   █   ██▄█▀ ██ ██ ▀██ ████▀ ▄▄██▀
+
+-- most keybinds are plugin-specific and listed in their respective config files; the rest are here
+local set = Snacks.keymap.set
+
+-- move focus
+set({ 'n', 'c' }, '<C-h>', '<C-w><C-h>')
+set({ 'n', 'c' }, '<C-l>', '<C-w><C-l>')
+set({ 'n', 'c' }, '<C-j>', '<C-w><C-j>')
+set({ 'n', 'c' }, '<C-k>', '<C-w><C-k>')
+
+set('n', '<leader>xl', '<cmd>Lazy<CR>')
+
+set('n', '<leader>w', '<C-w>')
+set('n', '-', '<C-w>-', { desc = 'Increase height' })
+set('n', '+', '<C-w>+', { desc = 'Decrease height' })
+set('n', '<C-->', '<C-w><', { desc = 'Increase width' })
+set('n', '<C-+>', '<C-w>>', { desc = 'Decrease width' })
+
+set('i', '<C-a>', '<Esc>I')
+set('i', '<C-e>', '<Esc>A')
+set('i', '<C-BS>', '<C-w>')
+
+set('n', 'q:', ':')
+set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
+set('n', 'q', '<cmd>q<CR>', { ft = 'help', nowait = true })
+
+--  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
+-- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄
+-- ▀███▀  ██   ██ ██ ██▄▄▄ ██ ██
+
+-- vim.api.nvim_create_augroup('kitty-grouping', { clear = true })
+--
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   desc = 'Disable padding on kitty windows when entering Neovim',
+--   group = 'kitty-grouping',
+--   callback = function()
+--     -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=0 &')
+--     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.92 &')
+--     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#1A1B26 &')
+--     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-window-title "nvim" &')
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd('VimLeave', {
+--   desc = 'Re-enable padding on kitty windows when exiting Neovim',
+--   group = 'kitty-grouping',
+--   callback = function()
+--     -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &')
+--     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.72 &')
+--     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#0e1415 &')
+--     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-window-title "zsh" &')
+--   end,
+-- })

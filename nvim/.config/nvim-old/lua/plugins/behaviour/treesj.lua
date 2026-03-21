@@ -1,11 +1,13 @@
 return {
   'Wansmer/treesj',
   lazy = true,
-  dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
   keys = {
     {
       'L',
-      function() require('treesj').toggle({ split = { recursive = false } }) end,
+      function()
+        require('treesj').toggle({ split = { recursive = false } })
+      end,
       desc = 'Toggle line split',
       mode = { 'n', 'x' },
     },

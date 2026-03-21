@@ -16,7 +16,6 @@ return {
         delete = 'ds',
         replace = 'cs',
         highlight = '',
-        -- update_n_lines = '',
         find = '',
         find_left = '',
       },

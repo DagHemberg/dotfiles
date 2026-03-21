@@ -1,12 +1,9 @@
 return {
   'folke/noice.nvim',
-  -- event = 'LspAttach',
   opts = {
     presets = {
-      -- bottom_search = true,
       command_palette = true,
       lsp_doc_border = true,
-      -- inc_rename = true,
     },
     lsp = {
       hover = { silent = true },
@@ -16,7 +13,6 @@ return {
       },
     },
     views = {
-      -- not optimal, but the best i can do for now
       cmdline_popup = {
         border = 'none',
         size = { min_width = 3 },
@@ -26,10 +22,6 @@ return {
         position = { row = -1 },
         timeout = 4000,
       },
-    },
-    routes = {
-      -- { filter = { event = "msg_show", kind = "", find = "written" }, view = "mini" },
-      -- { filter = { find = "changed:" }, view = "mini" },
     },
     popupmenu = { enabled = true },
     messages = { enabled = true },

@@ -7,7 +7,7 @@ return {
     end,
     highlight_substituted_text = { enabled = false },
   },
-  -- stylua: ignore
+  -- stylua: ignore start
   keys = {
     { 's', function() require('substitute').operator() end, noremap = true },
     { 'S', function() require('substitute').eol() end, noremap = true },
@@ -18,4 +18,5 @@ return {
     { 'sxx', function() require('substitute.exchange').line() end, noremap = true },
     { 'X', function() require('substitute.exchange').visual() end, noremap = true, mode = 'x' },
   },
+  -- stylua: ignore end
 }
