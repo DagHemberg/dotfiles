@@ -81,6 +81,9 @@ return {
     -- ██▄██ ██▄█▄ ██▀██ ██▀▀▀ ██▄█▀ ██▄▄    ██   ██▄▄  ██▀██
     -- ██▄█▀ ██ ██ ██▀██ ▀████ ██ ██ ██▄▄▄   ██   ██▄▄▄ ████▀
 
-    require('mini.bracketed')
+    require('mini.bracketed').setup({
+      undo = { suffix = '' },
+      treesitter = { suffix = '' }
+    })
   end,
 }

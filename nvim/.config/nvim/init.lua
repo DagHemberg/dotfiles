@@ -9,10 +9,8 @@ vim.g.maplocalleader = ' '
 
 vim.keymap.set('n', '<Esc>[105;5u', '<C-i>', { noremap = true })
 
-vim.keymap.set('n', 'ä', ']', { noremap = false })
-vim.keymap.set('n', 'ö', '[', { noremap = false })
-vim.keymap.set('o', 'ä', ']', { noremap = false })
-vim.keymap.set('o', 'ö', '[', { noremap = false })
+vim.keymap.set({ 'n', 'x', 'o' }, 'ö', '[', { remap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'ä', ']', { remap = true })
 
 -- typo-resistant write/quit
 vim.api.nvim_create_user_command('WQ', 'wq', {})
@@ -41,7 +39,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   checker = {
     enabled = true,
-    notify = true,
+    notify = false,
   },
   profiling = {
     loader = true,
@@ -213,6 +211,9 @@ set('i', '<C-BS>', '<C-w>')
 set('n', 'q:', ':')
 set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
 set('n', 'q', '<cmd>q<CR>', { ft = 'help', nowait = true })
+
+set ('n', ']t', '<cmd>tabnext<CR>')
+set ('n', '[t', '<cmd>tabprevious<CR>')
 
 --  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
 -- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄

@@ -28,17 +28,18 @@ return {
 
       vim.lsp.config('tinymist', {
         settings = {
-          formatterMode = 'typstyle'
-        }
+          formatterMode = 'typstyle',
+        },
       })
 
-      -- 
+      --
 
       vim.lsp.inlay_hint.enable(true)
 
       local set = Snacks.keymap.set
       local pick = Snacks.picker
 
+      -- defaults
       set('n', '<leader>ld', pick.lsp_symbols)
       set('n', '<leader>r', ':IncRename ', { desc = 'rename' })
       set('n', '<Leader>gd', pick.lsp_definitions, { desc = 'Go to definition' })
@@ -49,6 +50,10 @@ return {
       set('n', '<leader>lt', pick.lsp_type_definitions, { desc = 'Go to type definition' })
       set('n', '<leader>lc', vim.lsp.codelens.run, { desc = 'Run codelens' })
       -- TODO: Snacks.keymap.set('n', '<leader>a', require('tiny-code-action').code_action, desc = 'Perform code action', mode = { 'n', { 'x' } })
+
+      -- tinymist
+      local lsp_tm = { lsp = { name = 'tinymist' } }
+      set('n', '<leader>pp', '<cmd>LspTinymistPinMain<CR>', lsp_tm)
     end,
   },
 
@@ -90,7 +95,7 @@ return {
       format_on_save = { lsp_format = 'fallback' },
       formatters_by_ft = {
         lua = { 'stylua' },
-        typst = { lsp_format = 'prefer' }
+        typst = { lsp_format = 'prefer' },
       },
     },
   },
@@ -123,6 +128,10 @@ return {
         ['tinymist'] = 'tinymist',
       },
     },
+    config = function(self, opts)
+      require('typst-preview').setup(opts)
+      Snacks.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>')
+    end,
   },
 
   -- ▄▄▄▄  ▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄▄ ▄▄▄   ▄▄▄▄ ▄▄▄▄▄  ▄▄▄  ▄▄  ▄▄ ▄▄ ▄▄ ▄▄ ▄▄   ▄▄

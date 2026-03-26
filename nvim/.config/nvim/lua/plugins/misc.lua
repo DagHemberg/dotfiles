@@ -166,4 +166,45 @@ return {
     event = 'BufRead',
     opts = {},
   },
+
+  --  ▄▄▄▄ ▄▄ ▄▄ ▄▄  ▄▄  ▄▄▄▄ ▄▄     ▄▄▄   ▄▄▄▄  ▄▄▄▄ ▄▄▄▄▄  ▄▄▄▄
+  -- ███▄▄ ██ ██ ███▄██ ██ ▄▄ ██    ██▀██ ███▄▄ ███▄▄ ██▄▄  ███▄▄
+  -- ▄▄██▀ ▀███▀ ██ ▀██ ▀███▀ ██▄▄▄ ██▀██ ▄▄██▀ ▄▄██▀ ██▄▄▄ ▄▄██▀
+  {
+    'miversen33/sunglasses.nvim',
+    event = 'UIEnter',
+    opts = {
+      filter_percent = 0.2,
+      excluded_filetypes = {
+        'checkhealth',
+        'mason',
+        'plugin',
+        'lazy',
+        'registers',
+        'noice',
+        'notify',
+        'snacks_picker_list',
+        'snacks_picker_input',
+        'snacks_picker_preview',
+        'trouble',
+      },
+      excluded_highlights = {
+        'TodoFgTODO',
+        'TodoBgTODO',
+        'TodoSignTODO',
+      },
+    },
+  },
+
+  --  ▄▄▄▄ ▄▄     ▄▄▄  ▄▄ ▄▄ ▄▄▄▄  ▄▄▄▄▄
+  -- ██▀▀▀ ██    ██▀██ ██ ██ ██▀██ ██▄▄
+  -- ▀████ ██▄▄▄ ██▀██ ▀███▀ ████▀ ██▄▄▄
+  {
+    'coder/claudecode.nvim',
+    dependencies = { 'folke/snacks.nvim' },
+    opts = {},
+    keys = {
+      { '<leader>i', '<cmd>ClaudeCode<CR>' },
+    },
+  },
 }
