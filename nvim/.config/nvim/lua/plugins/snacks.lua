@@ -22,8 +22,9 @@ return {
     { '<leader>sc', function() Snacks.picker.lazy() end, desc = 'lazy packages' },
     { '<leader>sC', function() Snacks.picker.files({ cwd = '~/.config/nvim/', title = 'Neovim config files' }) end, desc = 'nvim config files' },
     { '<leader>sd', function() Snacks.picker.files({ cwd = '~/.dots/', title = '.dotfiles', hidden = true }) end, desc = 'dotfiles' },
+    { '<leader>s.', function() Snacks.picker.grep_word() end, desc = 'dotfiles' },
 
-    -- Explorer
+    -- Explorer 
     { '<leader>e', function() Snacks.explorer() end, desc = 'Toggle explorer'},
 
     -- LazyGit
@@ -46,6 +47,12 @@ return {
       get = vim.lsp.inlay_hint.is_enabled,
       set = vim.lsp.inlay_hint.enable,
     }
+
+    -- local deleted_diff = {
+    --   name = 'deleted diff',
+    --   get = ,
+    --   set = require('gitsigns').preview_hunk_inline(),
+    -- }
 
     Snacks.toggle.option('wrap'):map('<leader>tw')
     Snacks.toggle.new(inlay_hints):map('<leader>th')
@@ -114,9 +121,7 @@ return {
         keys = {
           term_normal = {
             '<esc>',
-            function()
-              vim.cmd('stopinsert')
-            end,
+            function() vim.cmd('stopinsert') end,
             mode = 't',
             expr = true,
           },

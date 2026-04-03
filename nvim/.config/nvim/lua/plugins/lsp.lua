@@ -45,7 +45,7 @@ return {
       set('n', '<Leader>gd', pick.lsp_definitions, { desc = 'Go to definition' })
       set('n', '<Leader>gD', pick.lsp_declarations, { desc = 'Go to declaration' })
       set('n', '<leader>gr', pick.lsp_references, { desc = 'Go to references' })
-      set('n', '<leader>li', pick.lsp_implementations, { desc = 'View implentations' })
+      set('n', '<leader>li', pick.lsp_implementations, { desc = 'View implementations' })
       set('n', '<leader>lw', pick.lsp_workspace_symbols, { desc = 'Open workspace symbols' })
       set('n', '<leader>lt', pick.lsp_type_definitions, { desc = 'Go to type definition' })
       set('n', '<leader>lc', vim.lsp.codelens.run, { desc = 'Run codelens' })
@@ -85,9 +85,7 @@ return {
     keys = {
       {
         '<leader>F',
-        function()
-          require('conform').format({ async = true, lsp_format = 'fallback' })
-        end,
+        function() require('conform').format({ async = true, lsp_format = 'fallback' }) end,
         desc = 'Format buffer',
       },
     },
@@ -96,6 +94,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         typst = { lsp_format = 'prefer' },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -128,7 +127,7 @@ return {
         ['tinymist'] = 'tinymist',
       },
     },
-    config = function(self, opts)
+    config = function(_, opts)
       require('typst-preview').setup(opts)
       Snacks.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>')
     end,
@@ -142,18 +141,19 @@ return {
     version = '^8',
     lazy = false,
     config = function()
-      Snacks.keymap.set('n', 'K', function()
-        vim.cmd.RustLsp({ 'hover', 'actions' })
-      end, { silent = true, lsp = { name = 'rust-analyzer', method = 'textDocument/hover' } })
+      Snacks.keymap.set(
+        'n',
+        'K',
+        function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
+        { silent = true, lsp = { name = 'rust-analyzer', method = 'textDocument/hover' } }
+      )
     end,
-    -- TODO: Rust
   },
 
   -- ▄▄ ▄▄  ▄▄▄   ▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄    ▄▄   ▄▄▄▄▄▄ ▄▄▄   ▄▄▄  ▄▄     ▄▄▄▄
   -- ██▄██ ██▀██ ███▄▄ ██▄█▀ ██▄▄  ██    ██     ██  ██▀██ ██▀██ ██    ███▄▄
   -- ██ ██ ██▀██ ▄▄██▀ ██ ██ ██▄▄▄ ██▄▄▄ ██▄▄▄  ██  ▀███▀ ▀███▀ ██▄▄▄ ▄▄██▀
   {
-    -- TODO: Haskell
     'mrcjkb/haskell-tools.nvim',
     version = '^7',
     lazy = false,
@@ -185,9 +185,7 @@ return {
       local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
       vim.api.nvim_create_autocmd('FileType', {
         pattern = self.ft,
-        callback = function()
-          require('metals').initialize_or_attach(opts)
-        end,
+        callback = function() require('metals').initialize_or_attach(opts) end,
         group = nvim_metals_group,
       })
     end,

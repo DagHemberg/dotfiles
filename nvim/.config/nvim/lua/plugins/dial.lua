@@ -39,8 +39,8 @@ return {
         end_sensitive = true,
         only_valid = true,
       }),
-      date({ pattern = '%H:%M', default_kind = 'min' }),
       date({ pattern = '%H:%M:%S', default_kind = 'sec' }),
+      date({ pattern = '%H:%M', default_kind = 'min' }),
 
       -- consts
       const({ elements = { 'true', 'false' }, preserve_case = true }),

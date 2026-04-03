@@ -31,24 +31,24 @@ return {
     --   hl_group = 'lualine_c_normal',
     -- })
 
-    -- local mason_updates = function()
-    --   local registry = require('mason-registry')
-    --   local installed_packages = registry.get_installed_package_names()
-    --   local packages_outdated = 0
-    --
-    --   for _, pkg_name in ipairs(installed_packages) do
-    --     local pkg = registry.get_package(pkg_name)
-    --     if pkg then
-    --       local ok_installed, installed_version = pcall(pkg.get_installed_version, pkg)
-    --       local ok_latest, latest_version = pcall(pkg.get_latest_version, pkg)
-    --       if ok_installed and ok_latest and installed_version ~= latest_version then
-    --         packages_outdated = packages_outdated + 1
-    --       end
-    --     end
-    --   end
-    --
-    --   return packages_outdated > 0 and tostring(packages_outdated) or ''
-    -- end
+    local mason_updates = function()
+      local registry = require('mason-registry')
+      local installed_packages = registry.get_installed_package_names()
+      local packages_outdated = 0
+
+      for _, pkg_name in ipairs(installed_packages) do
+        local pkg = registry.get_package(pkg_name)
+        if pkg then
+          local ok_installed, installed_version = pcall(pkg.get_installed_version, pkg)
+          local ok_latest, latest_version = pcall(pkg.get_latest_version, pkg)
+          if ok_installed and ok_latest and installed_version ~= latest_version then
+            packages_outdated = packages_outdated + 1
+          end
+        end
+      end
+
+      return packages_outdated > 0 and tostring(packages_outdated) or ''
+    end
 
     local opts = {
       options = {
@@ -65,9 +65,7 @@ return {
         lualine_a = {
           {
             'mode',
-            fmt = function(s)
-              return mode_map[s] or s
-            end,
+            fmt = function(s) return mode_map[s] or s end,
           },
         },
 
@@ -77,12 +75,8 @@ return {
 
         lualine_b = {
           {
-            function()
-              return vim.uv.cwd()
-            end,
-            fmt = function(s)
-              return string.match(s, '([^/]+)$')
-            end,
+            function() return vim.uv.cwd() end,
+            fmt = function(s) return string.match(s, '([^/]+)$') end,
           },
         },
 
@@ -114,11 +108,11 @@ return {
             cond = require('lazy.status').has_updates,
             color = 'MatchParen',
           },
-          -- {
-          --   mason_updates,
-          --   icon = '󰢻',
-          --   color = 'MatchParen',
-          -- },
+          {
+            mason_updates,
+            icon = '󰢻',
+            color = 'MatchParen',
+          },
           {
             'diff',
             colored = true,
@@ -163,9 +157,7 @@ return {
           {
             'branch',
             icon = { align = 'right' },
-            fmt = function(str)
-              return string.len(str) ~= 0 and '' or ''
-            end,
+            fmt = function(str) return string.len(str) ~= 0 and '' or '' end,
           },
         },
       },

@@ -34,12 +34,9 @@ return {
     'gbprod/substitute.nvim',
     dependencies = { 'rachartier/tiny-glimmer.nvim' },
     opts = {
-      on_substitute = function()
-        require('tiny-glimmer.support.substitute').substitute_cb()
-      end,
+      on_substitute = function() require('tiny-glimmer.support.substitute').substitute_cb() end,
       highlight_substituted_text = { enabled = false },
     },
-    -- stylua: ignore start
     keys = {
       { 's', function() require('substitute').operator() end, noremap = true },
       { 'S', function() require('substitute').eol() end, noremap = true },
@@ -49,7 +46,6 @@ return {
       { 'sxx', function() require('substitute.exchange').line() end, noremap = true },
       { 'X', function() require('substitute.exchange').visual() end, noremap = true, mode = 'x' },
     },
-    -- stylua: ignore end
   },
 
   --  ▄▄▄▄ ▄▄    ▄▄ ▄▄   ▄▄ ▄▄   ▄▄ ▄▄▄▄▄ ▄▄▄▄
@@ -164,7 +160,17 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = 'BufRead',
-    opts = {},
+    keys = {
+      { ']g', '<cmd>Gitsigns next_hunk<CR>' },
+      { '[g', '<cmd>Gitsigns prev_hunk<CR>' },
+      { '<leader>pd', '<cmd>Gitsigns preview_hunk_inline<CR>' },
+    },
+    opts = {
+      current_line_blame_opts = {
+        delay = 500,
+        virt_text_pos = 'right_align',
+      },
+    },
   },
 
   --  ▄▄▄▄ ▄▄ ▄▄ ▄▄  ▄▄  ▄▄▄▄ ▄▄     ▄▄▄   ▄▄▄▄  ▄▄▄▄ ▄▄▄▄▄  ▄▄▄▄
@@ -206,5 +212,19 @@ return {
     keys = {
       { '<leader>i', '<cmd>ClaudeCode<CR>' },
     },
+  },
+
+  {
+    'rachartier/tiny-code-action.nvim',
+    event = 'LspAttach',
+    keys = {
+      {
+        '<leader>a',
+        function() require('tiny-code-action').code_action({}) end,
+        noremap = true,
+        silent = true,
+      },
+    },
+    opts = { picker = { 'buffer' } },
   },
 }

@@ -8,7 +8,7 @@ return {
     build = ':TSUpdate',
     branch = 'main',
     config = function()
-      vim.api.nvim_create_autocmd({ 'Filetype' }, {
+      vim.api.nvim_create_autocmd({ 'FileType' }, {
         callback = function(event)
           -- make sure nvim-treesitter is loaded
           local nvim_treesitter = require('nvim-treesitter')
@@ -44,7 +44,9 @@ return {
       {
         'L',
         function()
-          require('treesj').toggle({ split = { recursive = false } })
+          require('treesj').toggle({
+            split = { recursive = false },
+          })
         end,
         desc = 'Toggle line split',
         mode = { 'n', 'x' },

@@ -23,18 +23,7 @@ vim.api.nvim_create_user_command('Q', 'q', {})
 -- ██    ██▀██   ▄█▀ ▀███▀
 -- ██▄▄▄ ██▀██ ▄██▄▄   █
 
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
-end
-
----@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
+vim.pack.add({ 'https://github.com/folke/lazy.nvim' })
 
 require('lazy').setup({
   checker = {
@@ -63,9 +52,7 @@ vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
 vim.opt.showmode = false
 vim.opt.wrap = false
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -127,9 +114,7 @@ vim.cmd.colorscheme('tokyonight')
 -- ██▀██ ██ ██▀██ ██ ▄▄ ███▄██ ██▀██ ███▄▄   ██   ██ ██▀▀▀ ███▄▄
 -- ████▀ ██ ██▀██ ▀███▀ ██ ▀██ ▀███▀ ▄▄██▀   ██   ██ ▀████ ▄▄██▀
 
-local function fmt_diagnostic(diagnostic)
-  return diagnostic.message
-end
+local function fmt_diagnostic(d) return d.message end
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -155,6 +140,7 @@ vim.diagnostic.config({
   },
 })
 
+-- TODO: make less cursed
 vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
   desc = 'Disable diagnostic.virtual_text on any line affected by the diagnostic',
   group = vim.api.nvim_create_augroup('diagnostic_virt_text_hide', { clear = true }),
@@ -180,8 +166,6 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
     end
   end,
 })
-
--- TODO: binding for showing all diagnostics / all on the current line (trouble?)
 
 -- ▄▄ ▄▄ ▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄  ▄▄ ▄▄  ▄▄ ▄▄▄▄   ▄▄▄▄
 -- ██▄█▀ ██▄▄  ▀███▀ ██▄██ ██ ███▄██ ██▀██ ███▄▄
@@ -212,33 +196,24 @@ set('n', 'q:', ':')
 set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
 set('n', 'q', '<cmd>q<CR>', { ft = 'help', nowait = true })
 
-set ('n', ']t', '<cmd>tabnext<CR>')
-set ('n', '[t', '<cmd>tabprevious<CR>')
+set('n', ']t', '<cmd>tabnext<CR>')
+set('n', '[t', '<cmd>tabprevious<CR>')
+set(
+  'n',
+  '<leader>RR',
+  '<cmd>mksession! $XDG_STATE_HOME/nvim/sessions/restart.vim | restart source $XDG_STATE_HOME/nvim/sessions/restart.vim<CR>'
+)
 
 --  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
 -- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄
 -- ▀███▀  ██   ██ ██ ██▄▄▄ ██ ██
 
--- vim.api.nvim_create_augroup('kitty-grouping', { clear = true })
---
--- vim.api.nvim_create_autocmd('VimEnter', {
---   desc = 'Disable padding on kitty windows when entering Neovim',
---   group = 'kitty-grouping',
---   callback = function()
---     -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=0 &')
---     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.92 &')
---     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#1A1B26 &')
---     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-window-title "nvim" &')
---   end,
--- })
---
--- vim.api.nvim_create_autocmd('VimLeave', {
---   desc = 'Re-enable padding on kitty windows when exiting Neovim',
---   group = 'kitty-grouping',
---   callback = function()
---     -- vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &')
---     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-background-opacity 0.72 &')
---     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-colors background=#0e1415 &')
---     vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-window-title "zsh" &')
---   end,
--- })
+vim.api.nvim_create_augroup('kitty-grouping', { clear = true })
+vim.api.nvim_create_autocmd('VimEnter', {
+  group = 'kitty-grouping',
+  callback = function() vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=0 &') end,
+})
+vim.api.nvim_create_autocmd('VimLeave', {
+  group = 'kitty-grouping',
+  callback = function() vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &') end,
+})

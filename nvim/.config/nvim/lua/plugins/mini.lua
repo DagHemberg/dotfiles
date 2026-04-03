@@ -7,9 +7,9 @@ return {
     -- ██▀▄▀██ ██▀██ ██▄██ ██▄▄
     -- ██   ██ ▀███▀  ▀█▀  ██▄▄▄
 
-    require('mini.move').setup({
+    local mm = require('mini.move')
+    local macos_opts = {
       mappings = {
-        -- #justmacosthings, uncomment on linux/windows
         left = '˛',
         right = 'ﬁ',
         down = '√',
@@ -20,7 +20,13 @@ return {
         line_down = '√',
         line_up = 'ª',
       },
-    })
+    }
+
+    if jit.os == 'OSX' then
+      mm.setup(macos_opts)
+    else
+      mm.setup()
+    end
 
     --  ▄▄▄  ▄▄    ▄▄  ▄▄▄▄ ▄▄  ▄▄
     -- ██▀██ ██    ██ ██ ▄▄ ███▄██
@@ -33,7 +39,7 @@ return {
     -- ▄▄██▀ ▀███▀ ██ ██ ██ ██ ▀███▀ ▀███▀ ██ ▀██ ████▀
 
     local sr = require('mini.surround')
-    local sr_ts = sr.gen_spec.input.treesitter
+    -- local sr_ts = sr.gen_spec.input.treesitter
     sr.setup({
       n_lines = 500,
       respect_selection_type = true,
@@ -52,13 +58,26 @@ return {
         },
         B = {
           input = { { '%b()', '%b[]', '%b{}' }, '^.().*().$' },
-          output = { left = '{ ', right = ' }' },
+          output = { left = '( ', right = ' )' },
         },
-        F = { input = sr_ts({ outer = '@function.outer', inner = '@function.inner' }) },
-        o = { input = sr_ts({ outer = '@block.outer', inner = '@block.inner' }) },
-        c = { input = sr_ts({ outer = '@class.outer', inner = '@class.inner' }) },
+        s = { output = { left = '[', right = ']' } },
+        S = { output = { left = '[ ', right = ' ]' } },
+        c = { output = { left = '{', right = '}' } },
+        C = { output = { left = '{ ', right = ' }' } },
+        -- F = { input = sr_ts({ outer = '@function.outer', inner = '@function.inner' }) },
+        -- o = { input = sr_ts({ outer = '@block.outer', inner = '@block.inner' }) },
+        -- c = { input = sr_ts({ outer = '@class.outer', inner = '@class.inner' }) },
       },
     })
+
+    Snacks.keymap.set('v', '"', 'gs"', { remap = true })
+    Snacks.keymap.set('v', "'", "gs'", { remap = true })
+    Snacks.keymap.set('v', '(', 'gs)', { remap = true })
+    Snacks.keymap.set('v', ')', 'gs)', { remap = true })
+    Snacks.keymap.set('v', '{', 'gs}', { remap = true })
+    Snacks.keymap.set('v', '}', 'gs}', { remap = true })
+    -- Snacks.keymap.set('v', '[', 'gs]', { remap = true })
+    -- Snacks.keymap.set('v', ']', 'gs]', { remap = true })
 
     --  ▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄ ▄▄ ▄▄  ▄▄ ▄▄▄▄      █   ▄▄ ▄▄  ▄▄  ▄▄▄▄ ▄▄ ▄▄▄▄  ▄▄▄▄▄
     -- ██▀██ ██▄█▄ ██▀██ ██ ██ ███▄██ ██▀██    █    ██ ███▄██ ███▄▄ ██ ██▀██ ██▄▄
@@ -83,7 +102,8 @@ return {
 
     require('mini.bracketed').setup({
       undo = { suffix = '' },
-      treesitter = { suffix = '' }
+      treesitter = { suffix = '' },
+      diagnostic = { suffix = '' },
     })
   end,
 }

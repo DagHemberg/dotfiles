@@ -1,5 +1,9 @@
 return {
   'folke/noice.nvim',
+  lazy = false,
+  keys = {
+    { '<leader>xn', '<cmd>NoiceSnacks<CR>' },
+  },
   opts = {
     presets = {
       command_palette = true,
