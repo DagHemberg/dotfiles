@@ -34,6 +34,11 @@ return {
     { '<C-ö>', function() Snacks.terminal.toggle() end, desc = 'Toggle terminal', mode = { 'n', 't' } },
     -- { '<Esc>', '<C-\\><C-n>', mode = { 't' } }
 
+    -- Words
+    { ']ä', function () Snacks.words.jump(vim.v.count1, true) end, mode = { 'n', 't' } },
+    { '[ö', function () Snacks.words.jump(-vim.v.count1, true) end, mode = { 'n', 't' } }
+,
+
     -- stylua: ignore end
   },
 
@@ -89,6 +94,39 @@ return {
               { win = 'input', height = 2, border = 'top' },
             },
           },
+        },
+      },
+    },
+
+    -- ▄▄▄▄   ▄▄▄   ▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄   ▄▄▄   ▄▄▄  ▄▄▄▄  ▄▄▄▄
+    -- ██▀██ ██▀██ ███▄▄ ██▄██ ██▄██ ██▀██ ██▀██ ██▄█▄ ██▀██
+    -- ████▀ ██▀██ ▄▄██▀ ██ ██ ██▄█▀ ▀███▀ ██▀██ ██ ██ ████▀
+
+    dashboard = {
+      preset = {
+        header = [[
+    ▄▄  ▄▄ ▄▄▄▄▄  ▄▄▄  ▄▄ ▄▄ ▄▄ ▄▄   ▄▄ 
+    ███▄██ ██▄▄  ██▀██ ██▄██ ██ ██▀▄▀██ 
+    ██ ▀██ ██▄▄▄ ▀███▀  ▀█▀  ██ ██   ██ ]],
+        keys = {
+          {
+            icon = ' ',
+            key = 'p',
+            desc = 'Latest projects',
+            action = ':lua Snacks.dashboard.pick("projects", { patterns = { ".git", "package.json", "Makefile", "lazy-lock.json" } })',
+          },
+          { icon = ' ', key = 'c', desc = 'Config', action = ":lua Snacks.dashboard.pick('lazy')" },
+          { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+          {
+            icon = ' ',
+            key = 'd',
+            desc = '.dotfiles',
+            action = ":lua Snacks.dashboard.pick('files', { cwd = '~/.dots/', title = '.dotfiles', hidden = true })",
+          },
+          { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+          { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+          { icon = ' ', key = 'm', desc = 'Mason', action = ':Mason' },
+          { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
         },
       },
     },

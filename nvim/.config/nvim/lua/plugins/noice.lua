@@ -5,6 +5,16 @@ return {
     { '<leader>xn', '<cmd>NoiceSnacks<CR>' },
   },
   opts = {
+    routes = {
+      {
+        filter = { event = 'lsp', find = 'Validate documents' },
+        opts = { skip = true },
+      },
+      {
+        filter = { event = 'lsp', find = 'Publish Diagnostics' },
+        opts = { skip = true },
+      },
+    },
     presets = {
       command_palette = true,
       lsp_doc_border = true,

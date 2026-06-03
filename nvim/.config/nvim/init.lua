@@ -115,6 +115,7 @@ vim.cmd.colorscheme('tokyonight')
 -- ████▀ ██ ██▀██ ▀███▀ ██ ▀██ ▀███▀ ▄▄██▀   ██   ██ ▀████ ▄▄██▀
 
 local function fmt_diagnostic(d) return d.message end
+local sev = vim.diagnostic.severity
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -122,10 +123,10 @@ vim.diagnostic.config({
   underline = true,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = ' ',
-      [vim.diagnostic.severity.WARN] = ' ',
-      [vim.diagnostic.severity.INFO] = ' ',
-      [vim.diagnostic.severity.HINT] = '󰌵 ',
+      [sev.ERROR] = ' ',
+      [sev.WARN] = ' ',
+      [sev.INFO] = ' ',
+      [sev.HINT] = '󰌵 ',
     },
   },
   virtual_lines = {

@@ -6,6 +6,9 @@ return {
     'neovim/nvim-lspconfig',
     lazy = true,
     config = function()
+      vim.lsp.log.set_level('trace')
+      vim.lsp.log.set_format_func(vim.inspect)
+
       vim.lsp.config('*', {
         capabilities = vim.lsp.protocol.make_client_capabilities(),
       })
@@ -26,13 +29,12 @@ return {
         },
       })
 
+      -- Typst
       vim.lsp.config('tinymist', {
         settings = {
           formatterMode = 'typstyle',
         },
       })
-
-      --
 
       vim.lsp.inlay_hint.enable(true)
 
@@ -94,6 +96,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         typst = { lsp_format = 'prefer' },
+        java = { 'google-java-format' },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
@@ -127,9 +130,25 @@ return {
         ['tinymist'] = 'tinymist',
       },
     },
-    config = function(_, opts)
+    config = function(this, opts)
       require('typst-preview').setup(opts)
-      Snacks.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>')
+      Snacks.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>', { ft = this.ft })
+    end,
+  },
+
+  -- ▄▄   ▄▄ ▄▄▄▄      ▄▄▄▄  ▄▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄   ▄▄
+  -- ██▀▄▀██ ██▀██ ▄▄▄ ██▄█▀ ██▄█▄ ██▄▄  ██▄██ ██ ██▄▄  ██ ▄ ██
+  -- ██   ██ ████▀     ██    ██ ██ ██▄▄▄  ▀█▀  ██ ██▄▄▄  ▀█▀█▀
+  {
+    'selimacerbas/markdown-preview.nvim',
+    dependencies = { 'selimacerbas/live-server.nvim' },
+    ft = { 'markdown', 'mmd', 'mermaid' },
+    opts = {
+      instance_mode = 'multi',
+    },
+    config = function(this, opts)
+      require('markdown_preview').setup(opts)
+      Snacks.keymap.set('n', '<leader>P', '<cmd>MarkdownPreview<CR>', { ft = this.ft })
     end,
   },
 

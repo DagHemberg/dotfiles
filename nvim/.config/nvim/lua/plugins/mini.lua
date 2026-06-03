@@ -34,6 +34,14 @@ return {
 
     require('mini.align').setup()
 
+    require('mini.operators').setup({
+      evaluate = { prefix = 'g=' }, -- default
+      multiply = { prefix = 'gm' }, -- default
+      sort = { prefix = 'gS' },
+      replace = { prefix = '' }, -- TODO: investigate replacing substitute.nvim with these?
+      exchange = { prefix = '' },
+    })
+
     --  ▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄ ▄▄ ▄▄  ▄▄ ▄▄▄▄
     -- ███▄▄ ██ ██ ██▄█▄ ██▄█▄ ██▀██ ██ ██ ███▄██ ██▀██
     -- ▄▄██▀ ▀███▀ ██ ██ ██ ██ ▀███▀ ▀███▀ ██ ▀██ ████▀

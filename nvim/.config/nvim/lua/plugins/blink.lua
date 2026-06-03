@@ -6,7 +6,9 @@ return {
     'saghen/blink.cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
     build = 'cargo build --release',
+    version = '1.*',
     dependencies = {
+      'saghen/blink.lib',
       'xzbdmw/colorful-menu.nvim',
       'rafamadriz/friendly-snippets',
     },
@@ -73,12 +75,23 @@ return {
   -- ██    ██▀██ ██ ██ ██ ▄▄██▀
   {
     'saghen/blink.pairs',
-    build = 'cargo build --release',
+    dependencies = 'saghen/blink.lib',
+    version = '*',
+    build = function() require('blink.pairs').download():pwait(60000) end,
+    -- build = 'cargo build --release',
+
     event = { 'InsertEnter', 'CmdlineEnter' },
     --- @module 'blink.pairs'
     --- @type blink.pairs.Config
     opts = {
       highlights = { enabled = false },
     },
+  },
+
+  -- ▄▄    ▄▄ ▄▄▄▄
+  -- ██    ██ ██▄██
+  -- ██▄▄▄ ██ ██▄█▀
+  {
+    'saghen/blink.lib',
   },
 }

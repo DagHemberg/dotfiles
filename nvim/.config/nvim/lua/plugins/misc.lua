@@ -130,7 +130,7 @@ return {
   -- ▄▄██▀ ██▄▄▄ ██▄▄▄ ▀███▀   ██   ██ ██
   {
     'tpope/vim-sleuth',
-    event = 'BufRead',
+    event = 'BufReadPre',
   },
 
   -- ▄▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄ ▄▄ ▄▄▄▄  ▄▄    ▄▄▄▄▄
@@ -161,8 +161,9 @@ return {
     'lewis6991/gitsigns.nvim',
     event = 'BufRead',
     keys = {
-      { ']g', '<cmd>Gitsigns next_hunk<CR>' },
-      { '[g', '<cmd>Gitsigns prev_hunk<CR>' },
+      { ']h', '<cmd>Gitsigns next_hunk<CR>' },
+      { '[h', '<cmd>Gitsigns prev_hunk<CR>' },
+      { '<leader>Gd', '<cmd>Gitsigns reset_hunk<CR>' },
       { '<leader>pd', '<cmd>Gitsigns preview_hunk_inline<CR>' },
     },
     opts = {
