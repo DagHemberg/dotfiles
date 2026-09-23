@@ -121,6 +121,10 @@ return {
             cond = function() return vim.o.columns > 94 end,
           },
           {
+            'overseer',
+            unique = true,
+          },
+          {
             'lsp_status',
             symbols = {
               spinner = '',

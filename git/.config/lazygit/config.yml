@@ -1,4 +1,4 @@
 git:
-  paging:
-    # externalDiffCommand: difft --display=inline --color=always
-    pager: delta --paging=never
+  diffRenderers:
+    - # externalDiffCommand: difft --display=inline --color=always
+      command: delta --paging=never

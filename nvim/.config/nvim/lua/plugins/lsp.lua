@@ -145,6 +145,7 @@ return {
         javascriptreact = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       },
     },
+    opts = { picker = { 'buffer' } },
   },
 
   -- ▄▄ ▄▄  ▄▄  ▄▄▄▄     ▄▄▄▄  ▄▄▄▄▄ ▄▄  ▄▄  ▄▄▄  ▄▄   ▄▄ ▄▄▄▄▄
