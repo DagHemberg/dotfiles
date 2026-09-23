@@ -145,15 +145,6 @@ return {
     },
   },
 
-  -- ▄▄ ▄▄  ▄▄  ▄▄▄▄     ▄▄▄▄  ▄▄▄▄▄ ▄▄  ▄▄  ▄▄▄  ▄▄   ▄▄ ▄▄▄▄▄
-  -- ██ ███▄██ ██▀▀▀ ▄▄▄ ██▄█▄ ██▄▄  ███▄██ ██▀██ ██▀▄▀██ ██▄▄
-  -- ██ ██ ▀██ ▀████     ██ ██ ██▄▄▄ ██ ▀██ ██▀██ ██   ██ ██▄▄▄
-  {
-    'smjonas/inc-rename.nvim',
-    event = 'BufRead',
-    opts = {},
-  },
-
   --  ▄▄▄▄ ▄▄ ▄▄▄▄▄▄ ▄▄▄▄ ▄▄  ▄▄▄▄ ▄▄  ▄▄  ▄▄▄▄
   -- ██ ▄▄ ██   ██  ███▄▄ ██ ██ ▄▄ ███▄██ ███▄▄
   -- ▀███▀ ██   ██  ▄▄██▀ ██ ▀███▀ ██ ▀██ ▄▄██▀
@@ -165,10 +156,11 @@ return {
       { '[h', '<cmd>Gitsigns prev_hunk<CR>' },
       { '<leader>Gd', '<cmd>Gitsigns reset_hunk<CR>' },
       { '<leader>pd', '<cmd>Gitsigns preview_hunk_inline<CR>' },
+      { '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>' },
     },
     opts = {
       current_line_blame_opts = {
-        delay = 500,
+        delay = 0,
         virt_text_pos = 'right_align',
       },
     },
@@ -180,23 +172,24 @@ return {
   {
     'coder/claudecode.nvim',
     dependencies = { 'folke/snacks.nvim' },
-    opts = {},
-    keys = {
-      { '<leader>i', '<cmd>ClaudeCode<CR>' },
-    },
-  },
-
-  {
-    'rachartier/tiny-code-action.nvim',
-    event = 'LspAttach',
-    keys = {
-      {
-        '<leader>a',
-        function() require('tiny-code-action').code_action({}) end,
-        noremap = true,
-        silent = true,
+    opts = {
+      diff_opts = {
+        layout = 'unified',
+      },
+      terminal = {
+        snacks_win_opts = {
+          keys = {
+            term_normal = false,
+            term_move_h = { '<C-h>', function() vim.cmd.wincmd('h') end, mode = 't' },
+            term_move_j = { '<C-j>', function() vim.cmd.wincmd('j') end, mode = 't' },
+            -- no <C-k> since that's conflicts with the clear text keybind (and nothing is to the right of claude anyway)
+            term_move_l = { '<C-l>', function() vim.cmd.wincmd('l') end, mode = 't' },
+          },
+        },
       },
     },
-    opts = { picker = { 'buffer' } },
+    keys = {
+      { '<C-S-i>', '<cmd>ClaudeCode<CR>', mode = { 'n', 't', 'v' } },
+    },
   },
 }

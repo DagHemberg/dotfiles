@@ -7,8 +7,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.keymap.set('n', '<Esc>[105;5u', '<C-i>', { noremap = true })
-
 vim.keymap.set({ 'n', 'x', 'o' }, 'ö', '[', { remap = true })
 vim.keymap.set({ 'n', 'x', 'o' }, 'ä', ']', { remap = true })
 
@@ -172,14 +170,14 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
 -- ██▄█▀ ██▄▄  ▀███▀ ██▄██ ██ ███▄██ ██▀██ ███▄▄
 -- ██ ██ ██▄▄▄   █   ██▄█▀ ██ ██ ▀██ ████▀ ▄▄██▀
 
--- most keybinds are plugin-specific and listed in their respective config files; the rest are here
+-- most keybinds are plugin-specific and live in their respective config files; the rest are here
 local set = Snacks.keymap.set
 
 -- move focus
-set({ 'n', 'c' }, '<C-h>', '<C-w><C-h>')
-set({ 'n', 'c' }, '<C-l>', '<C-w><C-l>')
-set({ 'n', 'c' }, '<C-j>', '<C-w><C-j>')
-set({ 'n', 'c' }, '<C-k>', '<C-w><C-k>')
+set({ 'n', 'v' }, '<C-h>', function() vim.cmd.wincmd('h') end)
+set({ 'n', 'v' }, '<C-j>', function() vim.cmd.wincmd('j') end)
+set({ 'n', 'v' }, '<C-k>', function() vim.cmd.wincmd('k') end)
+set({ 'n', 'v' }, '<C-l>', function() vim.cmd.wincmd('l') end)
 
 set('n', '<leader>xl', '<cmd>Lazy<CR>')
 
@@ -191,7 +189,7 @@ set('n', '<C-+>', '<C-w>>', { desc = 'Decrease width' })
 
 set('i', '<C-a>', '<Esc>I')
 set('i', '<C-e>', '<Esc>A')
-set('i', '<C-BS>', '<C-w>')
+set('i', jit.os == 'OSX' and '<A-BS>' or '<C-BS>', '<C-w>') -- TODO: move to karabiner
 
 set('n', 'q:', ':')
 set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
@@ -211,11 +209,6 @@ set({ 'n', 'v' }, '$', smart('$', 'g$'), { expr = true })
 
 set('n', ']t', '<cmd>tabnext<CR>')
 set('n', '[t', '<cmd>tabprevious<CR>')
-set(
-  'n',
-  '<leader>RR',
-  '<cmd>mksession! $XDG_STATE_HOME/nvim/sessions/restart.vim | restart source $XDG_STATE_HOME/nvim/sessions/restart.vim<CR>'
-)
 
 --  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
 -- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄

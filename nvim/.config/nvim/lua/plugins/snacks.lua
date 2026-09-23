@@ -1,4 +1,8 @@
 return {
+  --  ▄▄▄▄ ▄▄  ▄▄  ▄▄▄   ▄▄▄▄ ▄▄ ▄▄  ▄▄▄▄
+  -- ███▄▄ ███▄██ ██▀██ ██▀▀▀ ██▄█▀ ███▄▄
+  -- ▄▄██▀ ██ ▀██ ██▀██ ▀████ ██ ██ ▄▄██▀
+
   'folke/snacks.nvim',
   lazy = false,
   priority = 1000,
@@ -8,24 +12,33 @@ return {
   -- ██ ██ ██▄▄▄   █   ██▄█▀ ██ ██ ▀██ ████▀ ▄▄██▀
 
   keys = {
-    -- stylua: ignore start
 
     -- Pickers
+    -- stylua: ignore start
     { '<leader><space>', function() Snacks.picker.smart({ title = 'Search' }) end, desc = 'Search files' },
     { '<leader>h', function() Snacks.picker.help() end, desc = 'help' },
     { '<leader>ss', function() Snacks.picker.pickers() end, desc = 'builtin pickers' },
     { '<leader>sk', function() Snacks.picker.keymaps() end, desc = 'keymaps' },
     { '<leader>su', function() Snacks.picker.undo() end, desc = 'undo tree' },
     { '<leader>sg', function() Snacks.picker.grep() end, desc = 'grep' },
+    { '<leader>sg', function() Snacks.picker.grep_word({ live = true }) end, mode = { 'v' } },
     { '<leader>sr', function() Snacks.picker.resume() end, desc = 'resume previous' },
     { '<leader>sf', function() Snacks.picker.files() end, desc = 'files' },
     { '<leader>sc', function() Snacks.picker.lazy() end, desc = 'lazy packages' },
     { '<leader>sC', function() Snacks.picker.files({ cwd = '~/.config/nvim/', title = 'Neovim config files' }) end, desc = 'nvim config files' },
     { '<leader>sd', function() Snacks.picker.files({ cwd = '~/.dots/', title = '.dotfiles', hidden = true }) end, desc = 'dotfiles' },
-    { '<leader>s.', function() Snacks.picker.grep_word() end, desc = 'dotfiles' },
+    -- stylua: ignore end
 
-    -- Explorer 
-    { '<leader>e', function() Snacks.explorer() end, desc = 'Toggle explorer'},
+    -- Explorer
+    {
+      '<leader>e',
+      function()
+        local overseer_window = package.loaded['overseer.window']
+        if overseer_window and overseer_window.is_open() then overseer_window.close() end
+        Snacks.explorer()
+      end,
+      desc = 'Toggle explorer',
+    },
 
     -- LazyGit
     { '<leader>lg', function() Snacks.lazygit.open() end, desc = 'Open LazyGit' },
@@ -35,11 +48,10 @@ return {
     -- { '<Esc>', '<C-\\><C-n>', mode = { 't' } }
 
     -- Words
-    { ']ä', function () Snacks.words.jump(vim.v.count1, true) end, mode = { 'n', 't' } },
-    { '[ö', function () Snacks.words.jump(-vim.v.count1, true) end, mode = { 'n', 't' } }
-,
+    { ']ä', function() Snacks.words.jump(vim.v.count1, true) end, mode = { 'n', 't' } },
+    { '[ö', function() Snacks.words.jump(-vim.v.count1, true) end, mode = { 'n', 't' } },
 
-    -- stylua: ignore end
+    -- { '<leader>*', function() Snacks.picker.grep_word() end, mode = { 'v' } },
   },
 
   config = function(_, opts)
@@ -129,7 +141,7 @@ return {
           { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
           { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
           { icon = ' ', key = 'm', desc = 'Mason', action = ':Mason' },
-          { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+          { icon = ' ', key = 'q', desc = 'Quit', action = ':q' },
         },
       },
     },
@@ -167,6 +179,9 @@ return {
             expr = true,
           },
         },
+      },
+      lazygit = {
+        keys = { term_normal = false },
       },
     },
 

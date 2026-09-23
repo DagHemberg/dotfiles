@@ -1,4 +1,8 @@
 return {
+  -- ▄▄    ▄▄ ▄▄  ▄▄▄  ▄▄    ▄▄ ▄▄  ▄▄ ▄▄▄▄▄
+  -- ██    ██ ██ ██▀██ ██    ██ ███▄██ ██▄▄
+  -- ██▄▄▄ ▀███▀ ██▀██ ██▄▄▄ ██ ██ ▀██ ██▄▄▄
+
   'nvim-lualine/lualine.nvim',
   event = 'VeryLazy',
   dependencies = {
@@ -11,25 +15,13 @@ return {
       ['O-PENDING'] = '',
       ['INSERT'] = '',
       ['VISUAL'] = '󰈈',
-      ['V-BLOCK'] = '󱗽',
+      ['V-BLOCK'] = '󰩭',
       ['V-LINE'] = '󱪶',
       ['REPLACE'] = '󰼭',
       ['COMMAND'] = '',
       ['TERMINAL'] = '',
       ['SELECT'] = '',
     }
-
-    -- local trouble = require('trouble')
-    -- local symbols = trouble.statusline({
-    --   mode = 'lsp_document_symbols',
-    --   groups = {},
-    --   title = false,
-    --   filter = { range = false },
-    --   format = '{kind_icon}{symbol.name:Normal}',
-    --   -- The following line is needed to fix the background color
-    --   -- Set it to the lualine section you want to use
-    --   hl_group = 'lualine_c_normal',
-    -- })
 
     local mason_updates = function()
       if not package.loaded['mason-registry'] then
@@ -56,7 +48,6 @@ return {
     local opts = {
       options = {
         globalstatus = true,
-        -- theme = 'ayu',
         section_separators = { left = '▌', right = '▐' },
         component_separators = { left = '', right = '' },
       },
@@ -94,13 +85,6 @@ return {
           },
           { 'pretty_path', unnamed = '', directories = { enable = true, max_depth = 5 } },
           { 'diagnostics', symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' } },
-          -- {
-          --   symbols.get,
-          --   cond = symbols.has,
-          --   -- fmt = function(str)
-          --   --   return string.len(str) < 40 and str or string.sub(str, 0, 37) .. '...'
-          --   -- end,
-          -- },
         },
 
         -- ▄▄ ▄▄
@@ -108,7 +92,6 @@ return {
         -- ██ ██
 
         lualine_x = {
-          -- { 'progress', separator = ' ', padding = { left = 1, right = 0 } },
           {
             require('lazy.status').updates,
             cond = require('lazy.status').has_updates,
@@ -124,6 +107,10 @@ return {
             colored = true,
             symbols = { added = '󰐖 ', modified = '󰏬 ', removed = '󰍵 ' },
             cond = function() return vim.o.columns > 75 end,
+          },
+          {
+            'overseer',
+            unique = true,
           },
           {
             'lsp_status',
@@ -151,7 +138,6 @@ return {
         --   █
 
         lualine_y = {
-          -- stylua: ignore
           {
             function() return '  ' .. require('dap').status() end,
             cond = function() return package.loaded['dap'] and require('dap').status() ~= '' end,

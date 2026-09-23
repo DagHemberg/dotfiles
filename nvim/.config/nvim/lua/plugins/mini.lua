@@ -1,4 +1,8 @@
 return {
+  -- ▄▄   ▄▄ ▄▄ ▄▄  ▄▄ ▄▄
+  -- ██▀▄▀██ ██ ███▄██ ██
+  -- ██   ██ ██ ██ ▀██ ██
+
   'nvim-mini/mini.nvim',
   version = '*',
   event = 'BufRead',
@@ -7,32 +11,17 @@ return {
     -- ██▀▄▀██ ██▀██ ██▄██ ██▄▄
     -- ██   ██ ▀███▀  ▀█▀  ██▄▄▄
 
-    local mm = require('mini.move')
-    local macos_opts = {
-      mappings = {
-        left = '˛',
-        right = 'ﬁ',
-        down = '√',
-        up = 'ª',
-
-        line_left = '˛',
-        line_right = 'ﬁ',
-        line_down = '√',
-        line_up = 'ª',
-      },
-    }
-
-    if jit.os == 'OSX' then
-      mm.setup(macos_opts)
-    else
-      mm.setup()
-    end
+    require('mini.move').setup()
 
     --  ▄▄▄  ▄▄    ▄▄  ▄▄▄▄ ▄▄  ▄▄
     -- ██▀██ ██    ██ ██ ▄▄ ███▄██
     -- ██▀██ ██▄▄▄ ██ ▀███▀ ██ ▀██
 
     require('mini.align').setup()
+
+    --  ▄▄▄  ▄▄▄▄  ▄▄▄▄▄ ▄▄▄▄   ▄▄▄ ▄▄▄▄▄▄ ▄▄▄  ▄▄▄▄   ▄▄▄▄
+    -- ██▀██ ██▄█▀ ██▄▄  ██▄█▄ ██▀██  ██  ██▀██ ██▄█▄ ███▄▄
+    -- ▀███▀ ██    ██▄▄▄ ██ ██ ██▀██  ██  ▀███▀ ██ ██ ▄▄██▀
 
     require('mini.operators').setup({
       evaluate = { prefix = 'g=' }, -- default

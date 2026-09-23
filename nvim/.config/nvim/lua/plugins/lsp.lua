@@ -80,10 +80,10 @@ return {
       set('n', '<leader>gr', pick.lsp_references, { desc = 'Go to references' })
       set('n', '<leader>gt', pick.lsp_type_definitions, { desc = 'Go to type definition' })
       set('n', '<leader>gi', pick.lsp_implementations, { desc = 'Go to implementations' })
-      set('n', '<leader>lw', pick.lsp_symbols, { desc = 'Open symbols' })
-      set('n', '<leader>lW', pick.lsp_workspace_symbols, { desc = 'Open workspace symbols' })
+      set('n', '<leader>lw', pick.lsp_workspace_symbols, { desc = 'Open workspace symbols' })
+      set('n', '<leader>lW', pick.lsp_symbols, { desc = 'Open symbols' })
+      set('n', '<leader>lC', pick.lsp_config, { desc = 'Open symbols' })
       set('n', '<leader>lc', vim.lsp.codelens.run, { desc = 'Run codelens' })
-      -- TODO: Snacks.keymap.set('n', '<leader>a', require('tiny-code-action').code_action, desc = 'Perform code action', mode = { 'n', { 'x' } })
 
       -- tinymist
       local lsp_tm = { lsp = { name = 'tinymist' } }
@@ -111,6 +111,13 @@ return {
     },
     opts = {},
   },
+  {
+    'zapling/mason-lock.nvim',
+    opts = {},
+    dependencies = {
+      'mason-org/mason.nvim',
+    },
+  },
 
   --  ▄▄▄▄  ▄▄▄  ▄▄  ▄▄ ▄▄▄▄▄  ▄▄▄  ▄▄▄▄  ▄▄   ▄▄
   -- ██▀▀▀ ██▀██ ███▄██ ██▄▄  ██▀██ ██▄█▄ ██▀▄▀██
@@ -130,9 +137,40 @@ return {
         lua = { 'stylua' },
         typst = { lsp_format = 'prefer' },
         java = { 'google-java-format' },
-        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+        jsonc = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       },
     },
+  },
+
+  -- ▄▄ ▄▄  ▄▄  ▄▄▄▄     ▄▄▄▄  ▄▄▄▄▄ ▄▄  ▄▄  ▄▄▄  ▄▄   ▄▄ ▄▄▄▄▄
+  -- ██ ███▄██ ██▀▀▀ ▄▄▄ ██▄█▄ ██▄▄  ███▄██ ██▀██ ██▀▄▀██ ██▄▄
+  -- ██ ██ ▀██ ▀████     ██ ██ ██▄▄▄ ██ ▀██ ██▀██ ██   ██ ██▄▄▄
+  {
+    'smjonas/inc-rename.nvim',
+    event = 'BufRead',
+    opts = {},
+  },
+
+  -- ▄▄▄▄▄▄ ▄▄ ▄▄  ▄▄ ▄▄ ▄▄      ▄▄▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄▄      ▄▄▄   ▄▄▄▄ ▄▄▄▄▄▄ ▄▄  ▄▄▄  ▄▄  ▄▄
+  --   ██   ██ ███▄██ ▀███▀ ▄▄▄ ██▀▀▀ ██▀██ ██▀██ ██▄▄  ▄▄▄ ██▀██ ██▀▀▀   ██   ██ ██▀██ ███▄██
+  --   ██   ██ ██ ▀██   █       ▀████ ▀███▀ ████▀ ██▄▄▄     ██▀██ ▀████   ██   ██ ▀███▀ ██ ▀██
+  {
+    'rachartier/tiny-code-action.nvim',
+    event = 'LspAttach',
+    keys = {
+      {
+        '<leader>a',
+        function() require('tiny-code-action').code_action({}) end,
+        noremap = true,
+        silent = true,
+      },
+    },
+    opts = { picker = { 'buffer' } },
   },
 
   -- ============================[Language-specific plugins]==============================

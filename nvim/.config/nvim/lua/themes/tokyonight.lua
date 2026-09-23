@@ -5,6 +5,7 @@ return {
   opts = {
     style = 'night',
     transparent = false,
+    dim_inactive = true,
     on_highlights = function(hl, c)
       -- hl.DiffAdd = { bg = '#3D4B39' }
       -- hl.DiffChange = { bg = '#685531' }
