@@ -14,6 +14,18 @@ return {
         filter = { event = 'lsp', find = 'Publish Diagnostics' },
         opts = { skip = true },
       },
+      {
+        filter = { event = 'lsp', find = 'lint: mccabe' },
+        opts = { skip = true }
+      },
+      {
+        filter = { event = 'lsp', find = 'lint: pycodestyle' },
+        opts = { skip = true }
+      },
+      {
+        filter = { event = 'lsp', find = 'lint: pyflakes' },
+        opts = { skip = true }
+      },
     },
     presets = {
       command_palette = true,

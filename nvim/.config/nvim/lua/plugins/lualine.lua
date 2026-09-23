@@ -32,6 +32,9 @@ return {
     -- })
 
     local mason_updates = function()
+      if not package.loaded['mason-registry'] then
+        return ''
+      end
       local registry = require('mason-registry')
       local installed_packages = registry.get_installed_package_names()
       local packages_outdated = 0
@@ -77,6 +80,7 @@ return {
           {
             function() return vim.uv.cwd() end,
             fmt = function(s) return string.match(s, '([^/]+)$') end,
+            cond = function() return vim.o.columns > 50 end,
           },
         },
 
@@ -85,7 +89,9 @@ return {
         -- ▀████
 
         lualine_c = {
-          { require('NeoComposer.ui').status_recording },
+          {
+            function() return package.loaded['NeoComposer.ui'] and require('NeoComposer.ui').status_recording() or '' end,
+          },
           { 'pretty_path', unnamed = '', directories = { enable = true, max_depth = 5 } },
           { 'diagnostics', symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' } },
           -- {
@@ -117,19 +123,27 @@ return {
             'diff',
             colored = true,
             symbols = { added = '󰐖 ', modified = '󰏬 ', removed = '󰍵 ' },
+            cond = function() return vim.o.columns > 75 end,
           },
           {
             'lsp_status',
-            -- icon = '󰒍',
-            -- icon = ' ',
-            -- icon = '',
             symbols = {
               spinner = '',
               done = '',
             },
+            cond = function() return vim.o.columns > 94 end,
           },
-          { 'location' },
-          { 'filetype' },
+          {
+            'lsp_status',
+            symbols = {
+              spinner = '',
+              done = '',
+            },
+            show_name = false,
+            cond = function() return vim.o.columns > 70 and vim.o.columns < 95 end,
+          },
+          { 'location', cond = function() return vim.o.columns > 55 end },
+          { 'filetype', cond = function() return vim.o.columns > 65 end },
         },
 
         -- ▄▄ ▄▄
@@ -146,6 +160,7 @@ return {
           {
             'branch',
             icon = { align = 'right' },
+            cond = function() return vim.o.columns > 60 end,
           },
         },
 
@@ -158,6 +173,7 @@ return {
             'branch',
             icon = { align = 'right' },
             fmt = function(str) return string.len(str) ~= 0 and '' or '' end,
+            cond = function() return vim.o.columns > 35 end,
           },
         },
       },

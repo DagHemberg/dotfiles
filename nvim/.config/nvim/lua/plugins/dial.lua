@@ -17,7 +17,7 @@ return {
     local defaults = {
       -- numbers
       augend.decimal_fraction.new({ signed = true }),
-      augend.integer.alias.decimal,
+      augend.integer.alias.decimal_int,
       augend.integer.alias.hex,
       augend.integer.alias.octal,
       augend.integer.alias.binary,

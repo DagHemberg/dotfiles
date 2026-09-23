@@ -4,14 +4,16 @@ return {
   -- ▀████ ██   ██ ██
   {
     'saghen/blink.cmp',
+    build = function() require('blink.cmp').build():pwait() end,
     event = { 'InsertEnter', 'CmdlineEnter' },
-    build = 'cargo build --release',
-    version = '1.*',
     dependencies = {
       'saghen/blink.lib',
       'xzbdmw/colorful-menu.nvim',
       'rafamadriz/friendly-snippets',
     },
+
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
       keymap = {
         preset = 'super-tab',
@@ -81,6 +83,7 @@ return {
     -- build = 'cargo build --release',
 
     event = { 'InsertEnter', 'CmdlineEnter' },
+
     --- @module 'blink.pairs'
     --- @type blink.pairs.Config
     opts = {

@@ -33,6 +33,38 @@ return {
       vim.lsp.config('tinymist', {
         settings = {
           formatterMode = 'typstyle',
+          lint = {
+            enabled = true,
+            when = 'onType',
+          },
+        },
+      })
+
+      -- JSON
+      vim.lsp.config('jsonls', {
+        settings = {
+          json = {
+            validate = {
+              enable = true,
+              comments = 'warning',
+            },
+            format = {
+              enable = true,
+            },
+          },
+        },
+      })
+
+      -- Python
+      vim.lsp.config('pylsp', {
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                ignore = { 'E501' },
+              },
+            },
+          },
         },
       })
 
@@ -42,14 +74,14 @@ return {
       local pick = Snacks.picker
 
       -- defaults
-      set('n', '<leader>ld', pick.lsp_symbols)
       set('n', '<leader>r', ':IncRename ', { desc = 'rename' })
       set('n', '<Leader>gd', pick.lsp_definitions, { desc = 'Go to definition' })
       set('n', '<Leader>gD', pick.lsp_declarations, { desc = 'Go to declaration' })
       set('n', '<leader>gr', pick.lsp_references, { desc = 'Go to references' })
-      set('n', '<leader>li', pick.lsp_implementations, { desc = 'View implementations' })
-      set('n', '<leader>lw', pick.lsp_workspace_symbols, { desc = 'Open workspace symbols' })
-      set('n', '<leader>lt', pick.lsp_type_definitions, { desc = 'Go to type definition' })
+      set('n', '<leader>gt', pick.lsp_type_definitions, { desc = 'Go to type definition' })
+      set('n', '<leader>gi', pick.lsp_implementations, { desc = 'Go to implementations' })
+      set('n', '<leader>lw', pick.lsp_symbols, { desc = 'Open symbols' })
+      set('n', '<leader>lW', pick.lsp_workspace_symbols, { desc = 'Open workspace symbols' })
       set('n', '<leader>lc', vim.lsp.codelens.run, { desc = 'Run codelens' })
       -- TODO: Snacks.keymap.set('n', '<leader>a', require('tiny-code-action').code_action, desc = 'Perform code action', mode = { 'n', { 'x' } })
 
@@ -72,6 +104,7 @@ return {
   {
     -- auto-enable tools installed from mason
     'mason-org/mason-lspconfig.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       { 'mason-org/mason.nvim' },
       { 'neovim/nvim-lspconfig' },
@@ -127,7 +160,7 @@ return {
     version = '1.*',
     opts = {
       dependencies_bin = {
-        ['tinymist'] = 'tinymist',
+        tinymist = '/home/dag/.local/share/nvim/mason/bin/tinymist',
       },
     },
     config = function(this, opts)
@@ -160,12 +193,12 @@ return {
     version = '^8',
     lazy = false,
     config = function()
-      Snacks.keymap.set(
-        'n',
-        'K',
-        function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
-        { silent = true, lsp = { name = 'rust-analyzer', method = 'textDocument/hover' } }
-      )
+      -- Snacks.keymap.set(
+      --   'n',
+      --   'K',
+      --   function() vim.cmd.RustLsp({ 'hover', 'actions' }) end,
+      --   { silent = true, lsp = { name = 'rust-analyzer', method = 'textDocument/hover' } }
+      -- )
     end,
   },
 

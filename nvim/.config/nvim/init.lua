@@ -197,6 +197,18 @@ set('n', 'q:', ':')
 set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
 set('n', 'q', '<cmd>q<CR>', { ft = 'help', nowait = true })
 
+-- set('n', '<C-i>', '<C-i>')
+-- set('n', '<tab>', 'gt')
+
+local smart = function(normal, wrapped)
+  return function() return vim.wo.wrap and wrapped or normal end
+end
+
+set({ 'n', 'v' }, 'j', smart('j', 'gj'), { expr = true })
+set({ 'n', 'v' }, 'k', smart('k', 'gk'), { expr = true })
+set({ 'n', 'v' }, '0', smart('0', 'g0'), { expr = true })
+set({ 'n', 'v' }, '$', smart('$', 'g$'), { expr = true })
+
 set('n', ']t', '<cmd>tabnext<CR>')
 set('n', '[t', '<cmd>tabprevious<CR>')
 set(
@@ -208,6 +220,8 @@ set(
 --  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
 -- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄
 -- ▀███▀  ██   ██ ██ ██▄▄▄ ██ ██
+
+vim.treesitter.language.register('xml', 'svg')
 
 vim.api.nvim_create_augroup('kitty-grouping', { clear = true })
 vim.api.nvim_create_autocmd('VimEnter', {

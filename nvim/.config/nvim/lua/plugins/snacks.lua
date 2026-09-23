@@ -77,6 +77,9 @@ return {
         -- ui = { selected = ' ' },
       },
       sources = {
+        lsp_workspace_symbols = {
+          live = false,
+        },
         explorer = {
           hidden = true,
           ignored = true,
@@ -146,7 +149,7 @@ return {
     -- ██ ██   ██ ██▀██ ▀███▀ ██▄▄▄
 
     image = {
-      doc = { enabled = true },
+      doc = { enabled = false },
       math = { enabled = false },
     },
 
