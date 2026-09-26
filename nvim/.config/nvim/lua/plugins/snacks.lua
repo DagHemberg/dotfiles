@@ -27,6 +27,7 @@ return {
     { '<leader>sc', function() Snacks.picker.lazy() end, desc = 'lazy packages' },
     { '<leader>sC', function() Snacks.picker.files({ cwd = '~/.config/nvim/', title = 'Neovim config files' }) end, desc = 'nvim config files' },
     { '<leader>sd', function() Snacks.picker.files({ cwd = '~/.dots/', title = '.dotfiles', hidden = true }) end, desc = 'dotfiles' },
+    { '<leader>si', function() Snacks.picker.icons() end, desc = 'icons' },
     {
       '<leader>sp',
       function()

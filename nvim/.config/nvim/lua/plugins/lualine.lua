@@ -24,9 +24,7 @@ return {
     }
 
     local mason_updates = function()
-      if not package.loaded['mason-registry'] then
-        return ''
-      end
+      if not package.loaded['mason-registry'] then return '' end
       local registry = require('mason-registry')
       local installed_packages = registry.get_installed_package_names()
       local packages_outdated = 0
@@ -83,7 +81,12 @@ return {
           {
             function() return package.loaded['NeoComposer.ui'] and require('NeoComposer.ui').status_recording() or '' end,
           },
-          { 'pretty_path', unnamed = '', directories = { enable = true, max_depth = 5 } },
+          {
+            'pretty_path',
+            unnamed = '',
+            symbols = { readonly = '' },
+            directories = { enable = true, max_depth = 5 },
+          },
           { 'diagnostics', symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' } },
         },
 
@@ -114,22 +117,12 @@ return {
           },
           {
             'lsp_status',
-            symbols = {
-              spinner = '',
-              done = '',
-            },
+            symbols = { spinner = '', done = '' },
             cond = function() return vim.o.columns > 94 end,
           },
           {
-            'overseer',
-            unique = true,
-          },
-          {
             'lsp_status',
-            symbols = {
-              spinner = '',
-              done = '',
-            },
+            symbols = { spinner = '', done = '' },
             show_name = false,
             cond = function() return vim.o.columns > 70 and vim.o.columns < 95 end,
           },

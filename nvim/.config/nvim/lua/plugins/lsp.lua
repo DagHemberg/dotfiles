@@ -6,8 +6,8 @@ return {
     'neovim/nvim-lspconfig',
     lazy = true,
     config = function()
-      vim.lsp.log.set_level('trace')
-      vim.lsp.log.set_format_func(vim.inspect)
+      -- vim.lsp.log.set_level('trace')
+      -- vim.lsp.log.set_format_func(vim.inspect)
 
       vim.lsp.config('*', {
         capabilities = vim.lsp.protocol.make_client_capabilities(),
@@ -17,7 +17,7 @@ return {
       vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
-            ['hint.arrayIndex'] = 'Disable',
+            hint = { arrayIndex = 'Disable' },
             workspace = {
               checkThirdParty = false,
               library = {
@@ -33,10 +33,7 @@ return {
       vim.lsp.config('tinymist', {
         settings = {
           formatterMode = 'typstyle',
-          lint = {
-            enabled = true,
-            when = 'onType',
-          },
+          lint = { enabled = true, when = 'onType' },
         },
       })
 
@@ -44,13 +41,8 @@ return {
       vim.lsp.config('jsonls', {
         settings = {
           json = {
-            validate = {
-              enable = true,
-              comments = 'warning',
-            },
-            format = {
-              enable = true,
-            },
+            validate = { enable = true, comments = 'warning' },
+            format = { enable = true },
           },
         },
       })
@@ -60,9 +52,7 @@ return {
         settings = {
           pylsp = {
             plugins = {
-              pycodestyle = {
-                ignore = { 'E501' },
-              },
+              pycodestyle = { ignore = { 'E501' } },
             },
           },
         },
@@ -95,27 +85,29 @@ return {
   -- ██▀▄▀██ ██▀██ ███▄▄ ██▀██ ███▄██
   -- ██   ██ ██▀██ ▄▄██▀ ▀███▀ ██ ▀██
   {
-    'mason-org/mason.nvim',
-    opts = {},
-    keys = {
-      { '<leader>xm', '<cmd>Mason<cr>' },
-    },
-  },
-  {
-    -- auto-enable tools installed from mason
-    'mason-org/mason-lspconfig.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      { 'mason-org/mason.nvim' },
-      { 'neovim/nvim-lspconfig' },
-    },
-    opts = {},
-  },
-  {
-    'zapling/mason-lock.nvim',
-    opts = {},
-    dependencies = {
+    {
       'mason-org/mason.nvim',
+      opts = {},
+      keys = {
+        { '<leader>M', '<cmd>Mason<cr>' },
+      },
+    },
+    {
+      -- auto-enable tools installed from mason
+      'mason-org/mason-lspconfig.nvim',
+      event = { 'BufReadPre', 'BufNewFile' },
+      dependencies = {
+        { 'mason-org/mason.nvim' },
+        { 'neovim/nvim-lspconfig' },
+      },
+      opts = {},
+    },
+    {
+      'zapling/mason-lock.nvim',
+      opts = {},
+      dependencies = {
+        'mason-org/mason.nvim',
+      },
     },
   },
 
@@ -145,7 +137,6 @@ return {
         javascriptreact = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       },
     },
-    opts = { picker = { 'buffer' } },
   },
 
   -- ▄▄ ▄▄  ▄▄  ▄▄▄▄     ▄▄▄▄  ▄▄▄▄▄ ▄▄  ▄▄  ▄▄▄  ▄▄   ▄▄ ▄▄▄▄▄
@@ -229,7 +220,7 @@ return {
   -- ██ ██ ▀███▀ ▄▄██▀   ██  ██▀██ ▀████ ██▄▄▄ ██▀██ ██ ▀██  ▀█▀  ██ ██   ██
   {
     'mrcjkb/rustaceanvim',
-    version = '^8',
+    version = '*',
     lazy = false,
     config = function()
       -- Snacks.keymap.set(
@@ -246,7 +237,7 @@ return {
   -- ██ ██ ██▀██ ▄▄██▀ ██ ██ ██▄▄▄ ██▄▄▄ ██▄▄▄  ██  ▀███▀ ▀███▀ ██▄▄▄ ▄▄██▀
   {
     'mrcjkb/haskell-tools.nvim',
-    version = '^7',
+    version = '*',
     lazy = false,
     config = function()
       local ht = require('haskell-tools')

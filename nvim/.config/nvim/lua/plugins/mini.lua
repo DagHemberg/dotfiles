@@ -27,7 +27,7 @@ return {
       evaluate = { prefix = 'g=' }, -- default
       multiply = { prefix = 'gm' }, -- default
       sort = { prefix = 'gS' },
-      replace = { prefix = '' }, -- TODO: investigate replacing substitute.nvim with these?
+      replace = { prefix = '' },
       exchange = { prefix = '' },
     })
 
@@ -67,14 +67,15 @@ return {
       },
     })
 
-    Snacks.keymap.set('v', '"', 'gs"', { remap = true })
-    Snacks.keymap.set('v', "'", "gs'", { remap = true })
-    Snacks.keymap.set('v', '(', 'gs)', { remap = true })
-    Snacks.keymap.set('v', ')', 'gs)', { remap = true })
-    Snacks.keymap.set('v', '{', 'gs}', { remap = true })
-    Snacks.keymap.set('v', '}', 'gs}', { remap = true })
-    -- Snacks.keymap.set('v', '[', 'gs]', { remap = true })
-    -- Snacks.keymap.set('v', ']', 'gs]', { remap = true })
+    local set = Snacks.keymap.set
+    set('v', '"', 'gs"', { remap = true })
+    set('v', "'", "gs'", { remap = true })
+    set('v', '(', 'gs)', { remap = true })
+    set('v', ')', 'gs)', { remap = true })
+    set('v', '{', 'gs}', { remap = true })
+    set('v', '}', 'gs}', { remap = true })
+    -- set('v', '[', 'gs]', { remap = true })
+    -- set('v', ']', 'gs]', { remap = true })
 
     --  ▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄ ▄▄ ▄▄  ▄▄ ▄▄▄▄      █   ▄▄ ▄▄  ▄▄  ▄▄▄▄ ▄▄ ▄▄▄▄  ▄▄▄▄▄
     -- ██▀██ ██▄█▄ ██▀██ ██ ██ ███▄██ ██▀██    █    ██ ███▄██ ███▄▄ ██ ██▀██ ██▄▄

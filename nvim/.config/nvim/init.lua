@@ -179,7 +179,7 @@ set({ 'n', 'v' }, '<C-j>', function() vim.cmd.wincmd('j') end)
 set({ 'n', 'v' }, '<C-k>', function() vim.cmd.wincmd('k') end)
 set({ 'n', 'v' }, '<C-l>', function() vim.cmd.wincmd('l') end)
 
-set('n', '<leader>xl', '<cmd>Lazy<CR>')
+set('n', '<leader>L', '<cmd>Lazy<CR>')
 
 set('n', '<leader>w', '<C-w>')
 set('n', '-', '<C-w>-', { desc = 'Increase height' })
@@ -189,7 +189,7 @@ set('n', '<C-+>', '<C-w>>', { desc = 'Decrease width' })
 
 set('i', '<C-a>', '<Esc>I')
 set('i', '<C-e>', '<Esc>A')
-set('i', jit.os == 'OSX' and '<A-BS>' or '<C-BS>', '<C-w>') -- TODO: move to karabiner
+set('i', '<C-BS>', '<C-w>')
 
 set('n', 'q:', ':')
 set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
@@ -213,6 +213,8 @@ set('n', '[t', '<cmd>tabprevious<CR>')
 --  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
 -- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄
 -- ▀███▀  ██   ██ ██ ██▄▄▄ ██ ██
+
+vim.o.guifont = 'JetBrains Mono,Symbols Nerd Font'
 
 vim.treesitter.language.register('xml', 'svg')
 

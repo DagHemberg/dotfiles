@@ -17,8 +17,6 @@ return {
             queries = 'queries',
           },
         },
-        -- NOTE: nvim-treesitter joins `location` onto the compile dir but NOT the
-        -- queries dir, so `queries` must contain the location path itself
         jastadd_ast = {
           tier = 2,
           extensions = { 'ast' },
@@ -50,10 +48,11 @@ return {
           end
         end
       end
+
       inject_parsers()
       vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate', callback = inject_parsers })
 
-      -- "custom" formatoptions (sane defaults)
+      -- sane formatoptions defaults for custom grammars
       vim.api.nvim_create_autocmd('FileType', {
         pattern = vim.tbl_keys(custom_grammars),
         callback = function()
@@ -68,7 +67,6 @@ return {
           -- make sure nvim-treesitter is loaded
           local treesitter = require('nvim-treesitter')
           local parsers = require('nvim-treesitter.parsers')
-          -- local ts_parsers =
           local ft = vim.bo[event.buf].ft
           local lang = vim.treesitter.language.get_lang(ft)
           if not lang or not parsers[lang] or not treesitter.install then return end
@@ -97,11 +95,7 @@ return {
     keys = {
       {
         'L',
-        function()
-          require('treesj').toggle({
-            split = { recursive = false },
-          })
-        end,
+        function() require('treesj').toggle({ split = { recursive = false } }) end,
         desc = 'Toggle line split',
         mode = { 'n', 'x' },
       },
