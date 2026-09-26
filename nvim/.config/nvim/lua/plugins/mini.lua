@@ -102,5 +102,22 @@ return {
       treesitter = { suffix = '' },
       diagnostic = { suffix = '' },
     })
+
+    --  ▄▄▄▄ ▄▄▄▄▄  ▄▄▄▄  ▄▄▄▄ ▄▄  ▄▄▄  ▄▄  ▄▄  ▄▄▄▄
+    -- ███▄▄ ██▄▄  ███▄▄ ███▄▄ ██ ██▀██ ███▄██ ███▄▄
+    -- ▄▄██▀ ██▄▄▄ ▄▄██▀ ▄▄██▀ ██ ▀███▀ ██ ▀██ ▄▄██▀
+
+    local sessions = require('mini.sessions')
+    local projects = require('util.projects')
+    local SESSION_FILE = '.session.vim'
+
+    sessions.setup({
+      file = SESSION_FILE,
+      hooks = { post = { read = projects.reorder } },
+    })
+    set('n', '<leader>ms', function()
+      sessions.write(SESSION_FILE)
+      projects.reorder()
+    end)
   end,
 }

@@ -27,6 +27,18 @@ return {
     { '<leader>sc', function() Snacks.picker.lazy() end, desc = 'lazy packages' },
     { '<leader>sC', function() Snacks.picker.files({ cwd = '~/.config/nvim/', title = 'Neovim config files' }) end, desc = 'nvim config files' },
     { '<leader>sd', function() Snacks.picker.files({ cwd = '~/.dots/', title = '.dotfiles', hidden = true }) end, desc = 'dotfiles' },
+    {
+      '<leader>sp',
+      function()
+        Snacks.picker.projects({
+          projects = require('util.projects').projects(),
+          recent = false,
+          dev = { '/var/empty' },
+          confirm = function(_, item) require('util.projects').open(item.file) end,
+        })
+      end,
+      desc = 'projects',
+    },
     -- stylua: ignore end
 
     -- Explorer
@@ -95,7 +107,7 @@ return {
         explorer = {
           hidden = true,
           ignored = true,
-          exclude = { '.git' },
+          exclude = { '.git', '.session.vim', '.DS_Store' },
           layout = {
             layout = {
               position = 'left',
@@ -120,29 +132,65 @@ return {
     dashboard = {
       preset = {
         header = [[
-    ▄▄  ▄▄ ▄▄▄▄▄  ▄▄▄  ▄▄ ▄▄ ▄▄ ▄▄   ▄▄ 
-    ███▄██ ██▄▄  ██▀██ ██▄██ ██ ██▀▄▀██ 
-    ██ ▀██ ██▄▄▄ ▀███▀  ▀█▀  ██ ██   ██ ]],
+              ▀▀
+████▄ ▄█▀█▄ ▄███▄ ██ ██ ██ ███▄███▄ 
+██ ██ ██▄█▀ ██ ██ ██▄██ ██ ██ ██ ██ 
+██ ██ ▀█▄▄▄ ▀███▀  ▀█▀  ██ ██ ██ ██ ]],
         keys = {
+          { icon = ' ', key = 'n', desc = 'New file', action = ':ene | startinsert' },
+          { key = 'i', action = ':ene | startinsert', hidden = true },
+          { key = 'a', action = ':ene | startinsert', hidden = true },
           {
             icon = ' ',
             key = 'p',
-            desc = 'Latest projects',
-            action = ':lua Snacks.dashboard.pick("projects", { patterns = { ".git", "package.json", "Makefile", "lazy-lock.json" } })',
+            desc = 'Projects',
+            action = function()
+              Snacks.picker.projects({
+                projects = require('util.projects').projects(),
+                recent = false,
+                dev = { '/var/empty' },
+                confirm = function(_, item) require('util.projects').open(item.file) end,
+              })
+            end,
           },
-          { icon = ' ', key = 'c', desc = 'Config', action = ":lua Snacks.dashboard.pick('lazy')" },
-          { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
-          {
-            icon = ' ',
-            key = 'd',
-            desc = '.dotfiles',
-            action = ":lua Snacks.dashboard.pick('files', { cwd = '~/.dots/', title = '.dotfiles', hidden = true })",
-          },
-          { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
-          { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
-          { icon = ' ', key = 'm', desc = 'Mason', action = ':Mason' },
+          { icon = ' ', key = 'f', desc = 'Files', action = function() Snacks.picker.recent() end },
+          -- { icon = ' ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+          -- { icon = ' ', key = 'M', desc = 'Mason', action = ':Mason' },
+          -- { icon = ' ', key = 'lg', desc = 'Git', action = '<leader>lg' },
           { icon = ' ', key = 'q', desc = 'Quit', action = ':q' },
         },
+      },
+      sections = {
+        { section = 'header', padding = 2 },
+        function()
+          local projects = require('util.projects')
+          local target = projects.target()
+          if not target then return end
+
+          local same = 'Restore session'
+          local diff = 'Reopen latest project (' .. string.match(target, '([^/]+)$') .. ')'
+          local desc = projects.cwd() == target and same or diff
+          return {
+            icon = ' ',
+            desc = desc,
+            action = function() projects.open(target) end,
+            padding = 2,
+            key = 'r',
+          }
+        end,
+        { section = 'keys', padding = 2, gap = 1 },
+        {
+          section = 'projects',
+          icon = ' ',
+          title = 'Recent projects',
+          padding = 1,
+          limit = 10,
+          dirs = function() return require('util.projects').projects() end,
+          ---@diagnostic disable-next-line: param-type-mismatch
+          action = function(dir) require('util.projects').open(dir) end,
+          indent = 1,
+        },
+        { section = 'startup', padding = 1 },
       },
     },
 
