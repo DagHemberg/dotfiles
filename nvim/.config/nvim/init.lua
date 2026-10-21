@@ -52,6 +52,12 @@ vim.opt.showmode = false
 vim.opt.wrap = false
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 
+-- Enable per-directory config
+vim.o.exrc = true
+
+-- ...and re-run it on :cd, since built-in 'exrc' only fires once at startup.
+require('util.exrc')
+
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -104,6 +110,7 @@ vim.opt.conceallevel = 2
 -- Don't break in the middle of words
 vim.opt.linebreak = true
 
+-- Enable nerd font icons (use if installed)
 vim.g.have_nerd_font = true
 
 vim.cmd.colorscheme('tokyonight')
@@ -194,6 +201,7 @@ set('i', '<C-BS>', '<C-w>')
 set('n', 'q:', ':')
 set('n', '<Esc>', function() vim.cmd('nohlsearch') end, { nowait = true })
 set('n', 'q', '<cmd>q<CR>', { ft = 'help', nowait = true })
+set({ 'n', 'v' }, '<leader>D', function() vim.diagnostic.open_float() end)
 
 -- set('n', '<C-i>', '<C-i>')
 -- set('n', '<tab>', 'gt')

@@ -200,18 +200,18 @@ return {
   },
 
   -- ▄▄   ▄▄ ▄▄▄▄      ▄▄▄▄  ▄▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄   ▄▄
-  -- ██▀▄▀██ ██▀██ ▄▄▄ ██▄█▀ ██▄█▄ ██▄▄  ██▄██ ██ ██▄▄  ██ ▄ ██
+  -- ██▀▄▀██ ██▀██     ██▄█▀ ██▄█▄ ██▄▄  ██▄██ ██ ██▄▄  ██ ▄ ██
   -- ██   ██ ████▀     ██    ██ ██ ██▄▄▄  ▀█▀  ██ ██▄▄▄  ▀█▀█▀
   {
-    'selimacerbas/markdown-preview.nvim',
-    dependencies = { 'selimacerbas/live-server.nvim' },
+    'selimacerbas/mdkite.nvim',
+    dependencies = { 'selimacerbas/kitehost.nvim' },
     ft = { 'markdown', 'mmd', 'mermaid' },
     opts = {
       instance_mode = 'multi',
     },
     config = function(this, opts)
-      require('markdown_preview').setup(opts)
-      Snacks.keymap.set('n', '<leader>P', '<cmd>MarkdownPreview<CR>', { ft = this.ft })
+      require('mdkite').setup(opts)
+      Snacks.keymap.set('n', '<leader>P', '<cmd>MdKite start<CR>', { ft = this.ft })
     end,
   },
 

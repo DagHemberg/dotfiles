@@ -114,6 +114,12 @@ return {
     'catgoose/nvim-colorizer.lua',
     event = 'BufRead',
     opts = {
+      filetypes = {
+        '*',
+        '!snacks_terminal',
+        '!lazy',
+        '!mason',
+      },
       user_default_options = {
         names = false,
         mode = 'virtualtext',
@@ -157,10 +163,12 @@ return {
       { '<leader>Gd', '<cmd>Gitsigns reset_hunk<CR>' },
       { '<leader>pd', '<cmd>Gitsigns preview_hunk_inline<CR>' },
       { '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>' },
+      { '<leader>tB', '<cmd>Gitsigns blame<CR>' },
     },
     opts = {
+      current_line_blame = true,
       current_line_blame_opts = {
-        delay = 0,
+        delay = 500,
         virt_text_pos = 'right_align',
       },
     },
@@ -177,6 +185,7 @@ return {
         layout = 'unified',
       },
       terminal = {
+        split_width_percentage = 0.45,
         snacks_win_opts = {
           keys = {
             term_normal = false,

@@ -5,9 +5,7 @@ local M = {}
 local PROJECTS_FILE = vim.fn.stdpath('state') .. '/projects'
 
 ---@return string
-function M.cwd()
-  return vim.uv.fs_realpath(vim.uv.cwd() or '') or ''
-end
+function M.cwd() return vim.uv.fs_realpath(vim.uv.cwd() or '') or '' end
 
 ---@return string[]
 function M.projects()
@@ -54,9 +52,7 @@ end
 function M.open(dir)
   local sessions = require('mini.sessions')
 
-  if active_dir() == M.cwd() then
-    sessions.write(nil, { force = true, verbose = false })
-  end
+  if active_dir() == M.cwd() then sessions.write(nil, { force = true, verbose = false }) end
 
   local autowrite = sessions.config.autowrite
   sessions.config.autowrite = false

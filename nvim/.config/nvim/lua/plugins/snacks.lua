@@ -64,7 +64,8 @@ return {
     { ']ä', function() Snacks.words.jump(vim.v.count1, true) end, mode = { 'n', 't' } },
     { '[ö', function() Snacks.words.jump(-vim.v.count1, true) end, mode = { 'n', 't' } },
 
-    -- { '<leader>*', function() Snacks.picker.grep_word() end, mode = { 'v' } },
+    -- Gitbrowse
+    { '<leader>gg', function() Snacks.gitbrowse.open({ what = 'repo' }) end, desc = 'Open remote repo' },
   },
 
   config = function(_, opts)

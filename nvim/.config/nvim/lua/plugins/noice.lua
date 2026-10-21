@@ -20,15 +20,19 @@ return {
       },
       {
         filter = { event = 'lsp', find = 'lint: mccabe' },
-        opts = { skip = true }
+        opts = { skip = true },
       },
       {
         filter = { event = 'lsp', find = 'lint: pycodestyle' },
-        opts = { skip = true }
+        opts = { skip = true },
       },
       {
         filter = { event = 'lsp', find = 'lint: pyflakes' },
-        opts = { skip = true }
+        opts = { skip = true },
+      },
+      {
+        filter = { find = 'Wrote Mason lockfile' },
+        opts = { skip = true },
       },
     },
     presets = {
@@ -51,6 +55,9 @@ return {
       mini = {
         position = { row = -1 },
         timeout = 4000,
+      },
+      confirm = {
+        size = { min_width = 60, max_width = 120 },
       },
     },
     popupmenu = { enabled = true },
