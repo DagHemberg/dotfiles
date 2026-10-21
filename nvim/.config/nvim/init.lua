@@ -218,6 +218,8 @@ set({ 'n', 'v' }, '$', smart('$', 'g$'), { expr = true })
 set('n', ']t', '<cmd>tabnext<CR>')
 set('n', '[t', '<cmd>tabprevious<CR>')
 
+set('n', '<leader>RR', '<cmd>restart<CR>')
+
 --  ▄▄▄ ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄▄▄
 -- ██▀██  ██   ██▄██ ██▄▄  ██▄█▄
 -- ▀███▀  ██   ██ ██ ██▄▄▄ ██ ██
@@ -235,3 +237,25 @@ vim.api.nvim_create_autocmd('VimLeave', {
   group = 'kitty-grouping',
   callback = function() vim.fn.system('kitten @ --to $KITTY_LISTEN_ON set-spacing padding=default &') end,
 })
+
+-- :restart fix - having a terminal buffer in a session means filetype doesn't get detected
+if vim.v.startreason == 'restart' then
+  vim.api.nvim_create_autocmd('UIEnter', {
+    once = true,
+    callback = function()
+      vim.defer_fn(function()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if
+            vim.api.nvim_buf_is_loaded(buf)
+            and vim.bo[buf].buftype == ''
+            and vim.bo[buf].filetype == ''
+            and vim.api.nvim_buf_get_name(buf) ~= ''
+          then
+            local ft = vim.filetype.match({ buf = buf })
+            if ft then vim.bo[buf].filetype = ft end -- fires FileType
+          end
+        end
+      end, 50)
+    end,
+  })
+end

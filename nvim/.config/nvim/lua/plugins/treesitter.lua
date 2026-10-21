@@ -62,27 +62,40 @@ return {
       })
 
       -- auto-install languages based on filetype
+      local function attach(buf)
+        -- make sure nvim-treesitter is loaded
+        local treesitter = require('nvim-treesitter')
+        local parsers = require('nvim-treesitter.parsers')
+        local ft = vim.bo[buf].ft
+        local lang = vim.treesitter.language.get_lang(ft)
+        if not lang or not parsers[lang] or not treesitter.install then return end
+
+        treesitter.install({ lang }):await(function(err)
+          if err then
+            vim.notify('Treesitter install error for ft: ' .. ft .. ' err: ' .. err)
+            return
+          end
+
+          pcall(vim.treesitter.start, buf)
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        end)
+      end
+
       vim.api.nvim_create_autocmd('FileType', {
-        callback = function(event)
-          -- make sure nvim-treesitter is loaded
-          local treesitter = require('nvim-treesitter')
-          local parsers = require('nvim-treesitter.parsers')
-          local ft = vim.bo[event.buf].ft
-          local lang = vim.treesitter.language.get_lang(ft)
-          if not lang or not parsers[lang] or not treesitter.install then return end
-
-          treesitter.install({ lang }):await(function(err)
-            if err then
-              vim.notify('Treesitter install error for ft: ' .. ft .. ' err: ' .. err)
-              return
-            end
-
-            pcall(vim.treesitter.start, event.buf)
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-          end)
-        end,
+        callback = function(event) attach(event.buf) end,
       })
+
+      -- :restart fix safety net
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf)
+          and vim.bo[buf].buftype == ''
+          and vim.bo[buf].filetype ~= ''
+          and not vim.treesitter.highlighter.active[buf]
+        then
+          attach(buf)
+        end
+      end
     end,
   },
 
