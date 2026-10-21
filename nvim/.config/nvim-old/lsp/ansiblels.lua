@@ -1,5 +1,0 @@
-return {
-  options = {
-    filetypes = { 'yml' },
-  }
-}
