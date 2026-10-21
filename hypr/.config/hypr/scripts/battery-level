@@ -1,0 +1,24 @@
+#!/bin/bash
+
+CAP_PATH="/sys/class/power_supply/BAT0/capacity"
+STAT_PATH="/sys/class/power_supply/BAT0/status"
+
+if [ ! -f "$CAP_PATH" ]; then
+    echo "--%"
+    exit 0
+fi
+
+cap=$(cat "$CAP_PATH")
+status=$(cat "$STAT_PATH" 2>/dev/null)
+
+# Display charging icon if plugged in
+if [ "$status" = "Charging" ]; then
+    echo " ${cap}%"
+    exit 0
+fi
+
+# Map 0-100% into 5 stages
+icons=("" "" "" "" "")
+idx=$(( cap >= 100 ? 4 : cap / 20 ))
+
+echo "${icons[$idx]} ${cap}%"
