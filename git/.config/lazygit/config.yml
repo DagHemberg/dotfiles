@@ -1,4 +1,6 @@
+gui:
+  nerdFontsVersion: "3"
+  commitGraphStyle: detailed
 git:
   diffRenderers:
-    - # externalDiffCommand: difft --display=inline --color=always
-      command: delta --paging=never
+    - command: delta --paging=never
