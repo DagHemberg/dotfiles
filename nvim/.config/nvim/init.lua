@@ -151,6 +151,7 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
   desc = 'Disable diagnostic.virtual_text on any line affected by the diagnostic',
   group = vim.api.nvim_create_augroup('diagnostic_virt_text_hide', { clear = true }),
   callback = function(ev)
+    if vim.list_contains({ 'lazy', 'mason' }, vim.bo[ev.buf].filetype) then return end -- handled by lazy_window_diagnostics
     local cursor_lnum, _ = unpack(vim.api.nvim_win_get_cursor(0))
     cursor_lnum = cursor_lnum - 1
 
@@ -170,6 +171,22 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
         end
       end
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'lazy', 'mason' },
+  group = vim.api.nvim_create_augroup('lazy_window_diagnostics', { clear = true }),
+  callback = function(ev)
+    -- lazy reuses its buffer, so apply window opts every time it's displayed
+    vim.api.nvim_create_autocmd('BufWinEnter', {
+      buffer = ev.buf,
+      callback = function()
+        local win = vim.api.nvim_get_current_win()
+        vim.wo[win].statuscolumn = ''
+        vim.wo[win].signcolumn = 'no'
+      end,
+    })
   end,
 })
 
