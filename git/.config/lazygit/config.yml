@@ -4,3 +4,21 @@ gui:
 git:
   diffRenderers:
     - command: delta --paging=never
+keybinding:
+  universal:
+    nextBlock: [<c-j>, <tab>]
+    prevBlock: [<c-k>, <backtab>]
+    nextTab: <right>
+    prevTab: <left>
+    focusMainView: ["0", <c-l>]
+    jumpToBlock:
+      - "1"
+      - ["2", <c-h>]
+      - "3"
+      - "4"
+      - "5"
+    nextScreenMode: [+, <c-enter>]
+    prevScreenMode: [_, <c-s-enter>]
+  commits:
+    moveDownCommit: <c-s-j>
+    moveUpCommit: <c-s-k>
